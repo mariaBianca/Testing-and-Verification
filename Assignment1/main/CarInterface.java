@@ -1,5 +1,6 @@
 package main;
 
+
 /**
  * Interface of the Car.
  * @author Group1: Aseel Naji, Filip Isakovski, Antonino Sauleo, Maria-Bianca Cindroi
@@ -8,23 +9,25 @@ package main;
 public interface CarInterface {
 	
    /**
-     * Move the car forward with one meter.
+     * The car moves forward with one meter, by querying the ultrasound sensors
+     * through the isEmpty method.
      * @return Position(data structure)
      */
-    public Position moveForward();
+    public Position moveForward(Ultrasound ultrasoundOne, Ultrasound ultrasoundTwo) throws IllegalArgumentException;
 
     /**
      * Query the two ultrasound sensors and filter
      * the noise in their result .
      * @return distanceToObject (to the nearest object in the right hand sight)
      */
-    public double isEmpty();
+    public double isEmpty(Ultrasound ultrasoundOne, Ultrasound ultrasoundTwo) throws IllegalArgumentException;
 
     /**
-     * Move the car backward with one meter.
+     * The car moves backward with one meter, by querying the ultrasound sensors
+     * through the isEmpty method.
      * @return Position (of the car)
      */    
-    public Position moveBackward();
+    public Position moveBackward(Ultrasound ultrasoundOne, Ultrasound ultrasoundTwo) throws IllegalArgumentException;
 	
     /**
      *The car moves to the beginning of the current 5 meter free stretch of parking place, or until
