@@ -17,23 +17,25 @@ public interface CarInterface {
      * @throws StreetLengthException 
      */
     public Position moveForward(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) 
-    		throws IllegalArgumentException, StreetLengthException;
+    		throws StreetLengthException;
 
     /**
      * Query the two ultrasound sensors and filter
      * the noise in their result .
      * @return distanceToObject (to the nearest object in the right hand sight)
+     * @throws StreetLengthException 
      */
     public double isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
-    		throws IllegalArgumentException;
+    		throws IllegalArgumentException, StreetLengthException;
 
     /**
      * The car moves backward with one meter, by querying the ultrasound sensors
      * through the isEmpty method.
      * @return Position (of the car)
+     * @throws StreetLengthException 
      */    
     public Position moveBackward(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) 
-    		throws IllegalArgumentException;
+    		throws StreetLengthException;
 	
     /**
      *The car moves to the beginning of the current 5 meter free stretch of parking place, or until
