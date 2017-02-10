@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import main.Car;
 import main.Position;
 import main.UltrasoundSensor;
+import newErrorHandling.StreetLengthException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -40,15 +41,23 @@ public class MoveForwardTests {
     
     /**
      * TC1 . Car moves forward. 
+     * @throws StreetLengthException 
      */
 	@Test
-	public void moveForwardTest() {
+	public void moveForwardTest() throws StreetLengthException {
 		car.moveForward(uOne, uTwo);
 		assertEquals(1,car.getPosition().getPositionOnStreet());
 	}
 	
 	/**
 	 * TC2. Car reaches the end of the street (Position.x == 500). 
+	 * @throws StreetLengthException 
 	 */
+	@Test
+	public void moveCarAtTheEndOfTheStreet() throws StreetLengthException{
+		car.setPosition(500);
+		car.moveForward(uOne, uTwo);
+		assertEquals(500, car.getPosition().getPositionOnStreet());
+	}
 
 }
