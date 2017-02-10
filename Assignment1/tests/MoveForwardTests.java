@@ -31,10 +31,9 @@ public class MoveForwardTests {
 	
 	/**
 	 * Initialize the car. 
-	 * @throws StreetLengthException 
 	 */
     @Before
-	public void Initialize() throws StreetLengthException {
+	public void Initialize()  {
     	int temp[] = {1,2,3,4,2,1, 12, 232, 1};
     	UltrasoundSensor.setUltrasoundSensorOne(temp);
     	UltrasoundSensor.setUltrasoundSensorTwo(temp);
