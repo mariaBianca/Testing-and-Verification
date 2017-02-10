@@ -56,6 +56,7 @@ public class Car implements CarInterface{
 			if (pos.getPositionOnStreet() >= 0 && pos.getPositionOnStreet() <= 499){
 				pos.setPosition(pos.getPositionOnStreet()+1);
 			}
+			else pos.setPosition(-1);
 
 			if(isEmpty(ultrasoundTwo, ultrasoundTwo)>100){
 				position.setParked(true);
@@ -67,10 +68,14 @@ public class Car implements CarInterface{
 		return pos;
 		}
 
-	public double isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
+	public int isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
 			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return 0;
+
+		for (int i = 0; i<5; i++ ){
+			
+		}
+		
+		return distance;
 	}
 
 	public Position moveBackward(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
@@ -84,6 +89,7 @@ public class Car implements CarInterface{
 			if (pos.getPositionOnStreet() >= 1 && pos.getPositionOnStreet() <= 500){
 				pos.setPosition(pos.getPositionOnStreet()-1);
 			}
+			else throw new StreetLengthException();
 		}	
 		
 		return pos;
