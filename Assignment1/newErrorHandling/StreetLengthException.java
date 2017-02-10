@@ -10,8 +10,13 @@ package newErrorHandling;
 
 
 		private static final long serialVersionUID = 6989320739245639400L;
+		
+		public StreetLengthException(String message){
+			super(message);
+		};
 
-		public StreetLengthException(){
-			throw new IndexOutOfBoundsException("Car cannot move outside the street length.");
+		public StreetLengthException() throws StreetLengthException{
+			//throw new IndexOutOfBoundsException("Car cannot move outside the street length.");
+			throw new StreetLengthException("Car cannot move outside the street length.");
 		}
 	}
