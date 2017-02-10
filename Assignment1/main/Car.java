@@ -11,7 +11,9 @@ import newErrorHandling.StreetLengthException;
 public class Car implements CarInterface{
 
 	private Position position;
+	@SuppressWarnings("unused")
 	private int[] uOne;
+	@SuppressWarnings("unused")
 	private int[] uTwo;
 	
 	/**
@@ -20,8 +22,8 @@ public class Car implements CarInterface{
     public Car(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, 
     		boolean y, boolean available ){
     	
-    	int[] tmpUOne = uOne.getUltrasonicSensorOne();
-    	int[] tmpUTwo = uTwo.getUltrasoundSensorTwo();
+    	int[] tmpUOne = UltrasoundSensor.getUltrasonicSensorOne();
+    	int[] tmpUTwo = UltrasoundSensor.getUltrasoundSensorTwo();
 
     	UltrasoundSensor.setUltrasoundSensorOne(tmpUOne);
     	this.uOne = UltrasoundSensor.getUltrasonicSensorOne();
@@ -54,15 +56,15 @@ public class Car implements CarInterface{
 			if (pos.getPositionOnStreet() >= 0 && pos.getPositionOnStreet() <= 499){
 				pos.setPosition(pos.getPositionOnStreet()+1);
 			}
-			//if the car is not within the parameters of the street
-			else{
-				pos.setPosition(500);
-				
+
+			if(isEmpty(ultrasoundTwo, ultrasoundTwo)>100){
+				position.setParked(true);
 			}
+			}else{
+				position.setParked(false);
 		}	
-		return pos;
 		
-			
+		return pos;
 		}
 
 	public double isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
@@ -72,9 +74,19 @@ public class Car implements CarInterface{
 	}
 
 	public Position moveBackward(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
-			throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
+			throws StreetLengthException {
+		
+		Position pos = getPosition();
+		
+		//if the car is not parked
+		if (!pos.getParkingStatus()){
+			//if the car is on the street within the parameters of the street, then move forward
+			if (pos.getPositionOnStreet() >= 1 && pos.getPositionOnStreet() <= 500){
+				pos.setPosition(pos.getPositionOnStreet()-1);
+			}
+		}	
+		
+		return pos;
 	}
 
 	public void park() {
