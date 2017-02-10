@@ -5,9 +5,12 @@ import static org.junit.Assert.*;
 import main.Car;
 import main.Position;
 import main.UltrasoundSensor;
+import newErrorHandling.StreetLengthException;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
 * "isEmpty" test case implementations.
@@ -31,21 +34,29 @@ public class isEmptyTests {
 	 */
     @Before
 	public void Initialize()  {
-    	int temp[] = {1,2,3,4,2,1, 12, 232, 1};
-    	UltrasoundSensor.setUltrasoundSensorOne(temp);
-    	UltrasoundSensor.setUltrasoundSensorTwo(temp);
+    	int temp1[] = {1,2,3,4,2,1, 12, 232, 1};
+    	int temp2[] = {2,3,4,5,1,3, 13, 10, 2};
+    	UltrasoundSensor.setUltrasoundSensorOne(temp1);
+    	UltrasoundSensor.setUltrasoundSensorTwo(temp2);
 
     	car = new Car(uOne, uTwo, 0, false, false);
 	}
+    
+    /**
+     * Assign rules when it comes to the exception handling.
+     */
+	@Rule
+	public final ExpectedException exception = ExpectedException.none();
     
 	
 	/**
 	 * TC1. Object is detected. 
 	 */
     @Test
-	public void isEmptyTest() {
+	public void isEmptyTest() throws IllegalArgumentException {
     	int distance = car.isEmpty(uOne, uTwo);
-    	assertEquals(1,distance);
+		//exception.expect(IllegalArgumentException.class);
+    	assertEquals(4,distance);
 	}
 
 }
