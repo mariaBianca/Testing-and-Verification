@@ -25,7 +25,7 @@ public interface CarInterface {
      * @return distanceToObject (to the nearest object in the right hand sight)
      * @throws StreetLengthException 
      */
-    public double isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
+    public int isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
     		throws IllegalArgumentException, StreetLengthException;
 
     /**
