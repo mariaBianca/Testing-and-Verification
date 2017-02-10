@@ -31,6 +31,7 @@ public class isEmptyTests {
 	UltrasoundSensor uTwo;
 
 	private int testAverage = 0;
+	private int maxTestArrayLenght = 10;
 
 	/**
 	 * Initialize the car.
@@ -40,16 +41,14 @@ public class isEmptyTests {
 		Random rand = new Random();
 
 		int testArray1AvCount = 0, testArray2AvCount = 0;
-		int temp1[] = new int[10];
-		for (int i = 0; i < temp1.length; i++) {
+		int temp1[] = new int[maxTestArrayLenght];
+		int temp2[] = new int[maxTestArrayLenght];
+		for (int i = 0; i < maxTestArrayLenght; i++) {
 			temp1[i] = rand.nextInt(250);
 			if (temp1[i] <= 200 && temp1[i] > 0) {
 				testArray1AvCount++;
 				testAverage += temp1[i];
 			}
-		}
-		int temp2[] = new int[10];
-		for (int i = 0; i < temp2.length; i++) {
 			temp2[i] = rand.nextInt(250);
 			if (temp2[i] <= 200 && temp2[i] > 0) {
 				testArray2AvCount++;
