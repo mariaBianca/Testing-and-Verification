@@ -54,8 +54,7 @@ public class Car implements CarInterface{
 			}
 			//if the car is not within the parameters of the street
 			else{
-				throw new IndexOutOfBoundsException("Index " + pos.getPositionOnStreet()
-						+ " is out of bounds!");
+				throw new IndexOutOfBoundsException("Car cannot move beyond street length.");
 			}
 		}
 			
