@@ -5,129 +5,128 @@ import newErrorHandling.StreetLengthException;
 /**
  * Implementation of the CarInterface.
  * 
- * * @author Group1: Aseel Naji, Filip Isakovski, Antonino Sauleo, Maria-Bianca Cindroi
+ * * @author Group1: Aseel Naji, Filip Isakovski, Antonino Sauleo, Maria-Bianca
+ * Cindroi
  */
 
-public class Car implements CarInterface{
+public class Car implements CarInterface {
 
 	private Position position;
 	@SuppressWarnings("unused")
 	private int[] uOne;
 	@SuppressWarnings("unused")
 	private int[] uTwo;
-	
-	/**
-	 * "Car constructor.
-	 */
-    public Car(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, 
-    		boolean y, boolean available ){
-    	
-    	int[] tmpUOne = UltrasoundSensor.getUltrasonicSensorOne();
-    	int[] tmpUTwo = UltrasoundSensor.getUltrasoundSensorTwo();
 
-    	UltrasoundSensor.setUltrasoundSensorOne(tmpUOne);
-    	this.uOne = UltrasoundSensor.getUltrasonicSensorOne();
-    	
-    	UltrasoundSensor.setUltrasoundSensorTwo(tmpUTwo);
-    	this.uTwo = UltrasoundSensor.getUltrasoundSensorTwo();
-    	
-    	position = new Position(x, y, available);
-    }
-	 
-	 
 	/**
 	 * "Car constructor.
 	 */
-    public void setPosition(int x){
-    	position.setPosition(x);
-    }
-    
+	public Car(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, boolean y, boolean available) {
+
+		int[] tmpUOne = UltrasoundSensor.getUltrasonicSensorOne();
+		int[] tmpUTwo = UltrasoundSensor.getUltrasoundSensorTwo();
+
+		UltrasoundSensor.setUltrasoundSensorOne(tmpUOne);
+		this.uOne = UltrasoundSensor.getUltrasonicSensorOne();
+
+		UltrasoundSensor.setUltrasoundSensorTwo(tmpUTwo);
+		this.uTwo = UltrasoundSensor.getUltrasoundSensorTwo();
+
+		position = new Position(x, y, available);
+	}
+
+	/**
+	 * "Car constructor.
+	 */
+	public void setPosition(int x) {
+		position.setPosition(x);
+	}
+
 	/**
 	 * "Method implementing the "moveForward".
 	 */
-	public Position moveForward(UltrasoundSensor ultrasoundOne,UltrasoundSensor ultrasoundTwo)
+	public Position moveForward(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
 			throws StreetLengthException {
-		
+
 		Position pos = getPosition();
-		
-		//if the car is not parked
-		if (!pos.getParkingStatus()){
-			//if the car is on the street within the parameters of the street, then move forward
-			if (pos.getPositionOnStreet() >= 0 && pos.getPositionOnStreet() <= 499){
-				pos.setPosition(pos.getPositionOnStreet()+1);
-			}
-			else{
+
+		// if the car is not parked
+		if (!pos.getParkingStatus()) {
+			// if the car is on the street within the parameters of the street,
+			// then move forward
+			if (pos.getPositionOnStreet() >= 0 && pos.getPositionOnStreet() <= 499) {
+				pos.setPosition(pos.getPositionOnStreet() + 1);
+			} else {
 				throw new StreetLengthException();
-				//pos.setPosition(-1);
+				// pos.setPosition(-1);
 			}
 
-			if(isEmpty(ultrasoundTwo, ultrasoundTwo)>100){
+			if (isEmpty(ultrasoundTwo, ultrasoundTwo) > 100) {
 				position.setParked(true);
 			}
-			}else{
-				position.setParked(false);
-		}	
-		
-		return pos;
+		} else {
+			position.setParked(false);
 		}
 
-	public int isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
-			throws IllegalArgumentException {
+		return pos;
+	}
+
+	public int isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) throws IllegalArgumentException {
 		int distance = 0, usArrayLenght, average = 0, count = 0;
-		
+
 		int[] us1 = ultrasoundOne.getUltrasonicSensorOne(), us2 = ultrasoundTwo.getUltrasoundSensorTwo();
-		
-		if(us1.length>=us2.length){
+
+		if (us1.length >= us2.length) {
 			usArrayLenght = us1.length;
-		}else{
+		} else {
 			usArrayLenght = us2.length;
 		}
-		
-		for (int i = 0; i<usArrayLenght; i++){
-			if(us1[i] <= 200 && us1[i] > 0){
+
+		for (int i = 0; i < usArrayLenght; i++) {
+			if (us1[i] <= 200 && us1[i] > 0) {
 				average += us1[i];
-				count++;				
+				count++;
 			}
-			if(us2[i] <= 200 && us2[i] > 0){
+			if (us2[i] <= 200 && us2[i] > 0) {
 				average += us2[i];
 				count++;
 			}
 		}
-		if(average>0 && count>0){
-			distance = average/count;
+		if (average > 0 && count > 0) {
+			distance = average / count;
 		}
-		if(distance<0||distance>200){
+		if (distance < 0 || distance > 200) {
 			throw new IllegalArgumentException();
-			//System.out.println("Average: "+distance);
+			// System.out.println("Average: "+distance);
 		}
 		return distance;
 	}
 
 	public Position moveBackward(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
 			throws StreetLengthException {
-		
+
 		Position pos = getPosition();
-		
-		//if the car is not parked
-		if (!pos.getParkingStatus()){
-			//if the car is on the street within the parameters of the street, then move forward
-			if (pos.getPositionOnStreet() >= 1 && pos.getPositionOnStreet() <= 500){
-				pos.setPosition(pos.getPositionOnStreet()-1);
-			}
-			else throw new StreetLengthException();
-		}	
-		
+
+		// if the car is not parked
+		if (!pos.getParkingStatus()) {
+			// if the car is on the street within the parameters of the street,
+			// then move forward
+			if (pos.getPositionOnStreet() >= 1 && pos.getPositionOnStreet() <= 500) {
+				pos.setPosition(pos.getPositionOnStreet() - 1);
+			} else
+				throw new StreetLengthException();
+		}
+
 		return pos;
 	}
 
 	public void park() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void unpark() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/**
@@ -142,7 +141,7 @@ public class Car implements CarInterface{
 	/**
 	 * Method that gets the position of the car.
 	 */
-	public Position getPosition(){
+	public Position getPosition() {
 		return position;
 	}
 
