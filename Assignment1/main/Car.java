@@ -56,7 +56,10 @@ public class Car implements CarInterface{
 			if (pos.getPositionOnStreet() >= 0 && pos.getPositionOnStreet() <= 499){
 				pos.setPosition(pos.getPositionOnStreet()+1);
 			}
-			else pos.setPosition(-1);
+			else{
+				throw new StreetLengthException();
+				//pos.setPosition(-1);
+			}
 
 			if(isEmpty(ultrasoundTwo, ultrasoundTwo)>100){
 				position.setParked(true);
