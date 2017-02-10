@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.util.Random;
+
 import main.Car;
 import main.Position;
 import main.UltrasoundSensor;
@@ -29,15 +31,39 @@ public class isEmptyTests {
 	UltrasoundSensor uOne;
 	UltrasoundSensor uTwo;
 	
+	private int testAverage=0;
+	
 	/**
 	 * Initialize the car. 
 	 */
     @Before
 	public void Initialize()  {
-    	int temp1[] = {1,2,3,4,2,1, 12, 232, 1};
-    	int temp2[] = {2,3,4,5,1,3, 13, 10, 2};
-    	UltrasoundSensor.setUltrasoundSensorOne(temp1);
-    	UltrasoundSensor.setUltrasoundSensorTwo(temp2);
+    	Random rand = new Random();
+    	
+    	int testArray1AvCount=0, testArray2AvCount=0;
+    	int temp1[] = new int[10];
+    	for(int i=0; i<temp1.length; i++){
+    		temp1[i] = rand.nextInt(250);
+    		if(temp1[i]<=200 && temp1[i]>0){
+    			testArray1AvCount++;
+    			testAverage += temp1[i];
+    		}
+    	}
+    	int temp2[] = new int[10];
+    	for(int i=0; i<temp2.length; i++){
+    		temp2[i] = rand.nextInt(250);
+    		if(temp2[i]<=200 && temp2[i]>0){
+    			testArray2AvCount++;
+    			testAverage += temp2[i];
+    		}
+    	}
+    	
+    	testAverage /= (testArray1AvCount + testArray2AvCount);
+    	
+    	//UltrasoundSensor.setUltrasoundSensorOne(temp1);
+    	//UltrasoundSensor.setUltrasoundSensorTwo(temp2);
+    	uOne.setUltrasoundSensorOne(temp1);
+    	uTwo.setUltrasoundSensorTwo(temp2);
 
     	car = new Car(uOne, uTwo, 0, false, false);
 	}
@@ -55,8 +81,11 @@ public class isEmptyTests {
     @Test
 	public void isEmptyTest() throws IllegalArgumentException {
     	int distance = car.isEmpty(uOne, uTwo);
-		//exception.expect(IllegalArgumentException.class);
-    	assertEquals(4,distance);
+		if(distance<0||distance>200){
+			exception.expect(IllegalArgumentException.class);
+		}
+    	//System.out.println("Average test: "+ distance);
+    	assertEquals(testAverage,distance);
 	}
 
 }
