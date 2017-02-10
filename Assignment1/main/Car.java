@@ -1,5 +1,7 @@
 package main;
 
+import newErrorHandling.StreetLengthException;
+
 /**
  * Implementation of the CarInterface.
  * 
@@ -42,7 +44,7 @@ public class Car implements CarInterface{
 	 * "Method implementing the "moveForward".
 	 */
 	public Position moveForward(UltrasoundSensor ultrasoundOne,UltrasoundSensor ultrasoundTwo)
-			throws IllegalArgumentException {
+			throws StreetLengthException {
 		
 		Position pos = getPosition();
 		
@@ -54,11 +56,10 @@ public class Car implements CarInterface{
 			}
 			//if the car is not within the parameters of the street
 			else{
-				throw new IndexOutOfBoundsException("Car cannot move beyond street length.");
+				pos.setPosition(500);
+				
 			}
-		}
-			
-		
+		}	
 		return pos;
 		
 			
