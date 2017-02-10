@@ -64,8 +64,9 @@ public class MoveForwardTests {
 	@Test                  //?
 	public void moveCarAtTheEndOfTheStreet() throws StreetLengthException{
 		car.setPosition(500);
+		exception.expect(StreetLengthException.class);
 		car.moveForward(uOne, uTwo);
-		assertEquals(500, car.getPosition().getPositionOnStreet());
+//		assertEquals(500, car.getPosition().getPositionOnStreet());
 	}
 	
 	/**
