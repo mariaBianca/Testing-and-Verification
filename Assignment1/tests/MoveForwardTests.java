@@ -8,7 +8,9 @@ import main.UltrasoundSensor;
 import newErrorHandling.StreetLengthException;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * "MoveForward" test case implementations.
@@ -29,16 +31,23 @@ public class MoveForwardTests {
 	
 	/**
 	 * Initialize the car. 
+	 * @throws StreetLengthException 
 	 */
     @Before
-	public void Initialize() {
+	public void Initialize() throws StreetLengthException {
     	int temp[] = {1,2,3,4,2,1, 12, 232, 1};
-    	uOne.setUltrasoundSensorOne(temp);
-    	uTwo.setUltrasoundSensorTwo(temp);
+    	UltrasoundSensor.setUltrasoundSensorOne(temp);
+    	UltrasoundSensor.setUltrasoundSensorTwo(temp);
 
     	car = new Car(uOne, uTwo, 0, false, false);
 	}
     
+    /**
+     * Assign rules when it comes to the exception handling.
+     */
+	@Rule
+	public final ExpectedException exception = ExpectedException.none();
+
     /**
      * TC1 . Car moves forward. 
      * @throws StreetLengthException 
@@ -59,5 +68,24 @@ public class MoveForwardTests {
 		car.moveForward(uOne, uTwo);
 		assertEquals(500, car.getPosition().getPositionOnStreet());
 	}
+	
+	/**
+	 * TC3. Car starts moving before the beginning of the street (e.g. Position.x < 0). 
+	 */
 
+	public void moveCarBeforeTheEndOfTheStreet() throws StreetLengthException{
+		car.setPosition(-20);
+		exception.expect(StreetLengthException.class);
+		car.moveForward(uOne, uTwo);
+	}
+
+	/**
+	 * TC4. Car starts moving after the end of the street (e.g. Position.x > 500).
+	 */
+	public void moveCarAfterTheEndOfTheStreet() throws StreetLengthException{
+		car.setPosition(750);
+		exception.expect(StreetLengthException.class);
+		car.moveForward(uOne, uTwo);
+	}
+	
 }
