@@ -81,9 +81,9 @@ public class isEmptyTests {
     @Test
 	public void isEmptyTest() throws IllegalArgumentException {
     	int distance = car.isEmpty(uOne, uTwo);
-		if(distance<0||distance>200){
-			exception.expect(IllegalArgumentException.class);
-		}
+	if(distance<0||distance>200){
+		exception.expect(IllegalArgumentException.class);
+	}
     	//System.out.println("Average test: "+ distance);
     	assertEquals(testAverage,distance);
 	}
