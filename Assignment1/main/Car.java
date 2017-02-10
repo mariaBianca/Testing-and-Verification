@@ -73,11 +73,33 @@ public class Car implements CarInterface{
 
 	public int isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
 			throws IllegalArgumentException {
-
-		for (int i = 0; i<5; i++ ){
-			
+		int distance = 0, usArrayLenght, average = 0, count = 0;
+		
+		int[] us1 = ultrasoundOne.getUltrasonicSensorOne(), us2 = ultrasoundTwo.getUltrasoundSensorTwo();
+		
+		if(us1.length>=us2.length){
+			usArrayLenght = us1.length;
+		}else{
+			usArrayLenght = us2.length;
 		}
 		
+		for (int i = 0; i<usArrayLenght; i++){
+			if(us1[i] <= 200 && us1[i] > 0){
+				average += us1[i];
+				count++;				
+			}
+			if(us2[i] <= 200 && us2[i] > 0){
+				average += us2[i];
+				count++;
+			}
+		}
+		if(average>0 && count>0){
+			distance = average/count;
+		}
+		if(distance<0||distance>200){
+			throw new IllegalArgumentException();
+			//System.out.println("Average: "+distance);
+		}
 		return distance;
 	}
 
