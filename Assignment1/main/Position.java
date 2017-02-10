@@ -33,9 +33,6 @@ public class Position {
 		if (x >= 0 && x <= 500){
 			this.x = x;
 		}
-		else {
-			throw new IllegalArgumentException();
-		}
 	}
 	
 	/**
