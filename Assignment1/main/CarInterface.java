@@ -1,5 +1,7 @@
 package main;
 
+import newErrorHandling.StreetLengthException;
+
 
 /**
  * Interface of the Car.
@@ -12,9 +14,10 @@ public interface CarInterface {
      * The car moves forward with one meter, by querying the ultrasound sensors
      * through the isEmpty method.
      * @return Position(data structure)
+     * @throws StreetLengthException 
      */
     public Position moveForward(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) 
-    		throws IllegalArgumentException;
+    		throws IllegalArgumentException, StreetLengthException;
 
     /**
      * Query the two ultrasound sensors and filter
