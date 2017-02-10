@@ -34,7 +34,7 @@ public class MoveBackwardTests {
 	 */
     @Before
 	public void Initialize()  {
-    	int temp[] = {1,2,3,4,2,1, 12, 232, 1};
+    	int temp[] = {1, 2, 3, 4, 2, 1, 12, 232, 1};
     	UltrasoundSensor.setUltrasoundSensorOne(temp);
     	UltrasoundSensor.setUltrasoundSensorTwo(temp);
 
@@ -54,19 +54,40 @@ public class MoveBackwardTests {
 	 */
 	@Test
 	public void moveBackwardTest() throws StreetLengthException{
-		car.setPosition(1);
-		car.moveBackward(uOne, uOne);
+		car.moveBackward(uOne, uTwo);
 		assertEquals(0, car.getPosition().getPositionOnStreet());
 	}
 
 	/**
-	 * TC2. Car reaches the end of the street. (Position.x == 0)
+	 * TC2. Car reaches the beginning of the street. (Position.x == 0)
 	 *  @throws StreetLengthException 
 	 */
+	@Test                   //?
+	public void moveBackwardFromBeginningOfStreet() throws StreetLengthException{
+		car.setPosition(0);
+		car.moveBackward(uOne, uTwo);
+		assertEquals(0, car.getPosition().getPositionOnStreet());
+	} 
+
+	/**
+	 * TC3. Car starts moving before the beginning of the street (e.g. Position.x < 0).
+	 */
 	@Test
-	public void moveBackwardAtTheBeginningOfTheStreet() throws StreetLengthException{
+	public void moveBackwardBeforeBeginningOfStreet() throws StreetLengthException{
+		car.setPosition(-45);
+		//exception.expect(StreetLengthException.class);
+		car.moveBackward(uOne, uTwo);
+		assertEquals(0,car.getPosition().getPositionOnStreet());
+	}
+	
+	/**
+	 * TC4. Car position is initialized beyond the end of the street (e.g. Position.x > 500).
+	 */
+	@Test
+	public void moveBackwardBeyondStreet() throws StreetLengthException {
+		car.setPosition(512);
 		exception.expect(StreetLengthException.class);
 		car.moveBackward(uOne, uTwo);
-		//assertEquals(-1, car.getPosition().getPositionOnStreet());
 	}
+
 }
