@@ -54,6 +54,7 @@ public class MoveBackwardTests {
 	 */
 	@Test
 	public void moveBackwardTest() throws StreetLengthException{
+		car.setPosition(1);
 		car.moveBackward(uOne, uTwo);
 		assertEquals(0, car.getPosition().getPositionOnStreet());
 	}
@@ -64,9 +65,9 @@ public class MoveBackwardTests {
 	 */
 	@Test                   //?
 	public void moveBackwardFromBeginningOfStreet() throws StreetLengthException{
-		car.setPosition(0);
+		exception.expect(StreetLengthException.class);
 		car.moveBackward(uOne, uTwo);
-		assertEquals(0, car.getPosition().getPositionOnStreet());
+		//assertEquals(0, car.getPosition().getPositionOnStreet());
 	} 
 
 	/**
@@ -75,9 +76,9 @@ public class MoveBackwardTests {
 	@Test
 	public void moveBackwardBeforeBeginningOfStreet() throws StreetLengthException{
 		car.setPosition(-45);
-		//exception.expect(StreetLengthException.class);
+		exception.expect(StreetLengthException.class);
 		car.moveBackward(uOne, uTwo);
-		assertEquals(0,car.getPosition().getPositionOnStreet());
+		//assertEquals(0, car.getPosition().getPositionOnStreet());
 	}
 	
 	/**
@@ -85,9 +86,10 @@ public class MoveBackwardTests {
 	 */
 	@Test
 	public void moveBackwardBeyondStreet() throws StreetLengthException {
-		car.setPosition(512);
+		car.setPosition(567);
 		exception.expect(StreetLengthException.class);
 		car.moveBackward(uOne, uTwo);
+		//assertEquals(8, car.getPosition().getPositionOnStreet());
 	}
 
 }
