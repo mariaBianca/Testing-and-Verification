@@ -16,9 +16,16 @@ public class Car implements CarInterface {
 	private int[] uOne;
 	@SuppressWarnings("unused")
 	private int[] uTwo;
+//	@SuppressWarnings("unused")
+//	private boolean isParked;
+//	@SuppressWarnings("unused")
+//	private boolean isAvailable;
+	
 
 	/**
 	 * "Car constructor.
+	 * y - boolean isParked
+	 * available - boolean isAvailable
 	 */
 	public Car(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, boolean y, boolean available) {
 
@@ -118,10 +125,27 @@ public class Car implements CarInterface {
 
 		return pos;
 	}
-
-	public void park() {
-		// TODO Auto-generated method stub
-
+	
+	//Does the parking maneuver
+	public void park(){
+		System.out.println("Car parked!");
+	}
+	
+	//Assuming that sensors return int. values which represent meters.
+	public void park(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) {
+		Position pos = getPosition();
+		if (!pos.getParkingStatus()) {
+			if(isEmpty(ultrasoundOne, ultrasoundTwo) > 1){
+				while(isEmpty(ultrasoundOne, ultrasoundTwo) > 1){
+					try{
+						pos = moveForward(ultrasoundOne, ultrasoundTwo);
+					}catch (StreetLengthException sle) {
+						// TODO: handle exception
+					}
+				}
+				park();
+			}
+		}
 	}
 
 	public void unpark() {
