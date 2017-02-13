@@ -7,17 +7,21 @@ import java.util.Random;
 import main.Car;
 import main.Position;
 import main.UltrasoundSensor;
-import newErrorHandling.StreetLengthException;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- * "isEmpty" test case implementations. TC1. Object is detected. TC2. Object is
+ * "isEmpty test case implementations. TC1. Object is detected. TC2. Object is
  * not detected. TC3. Sensor returning consistent values. TC4. Sensor returning
  * noisy output.
+ * 
+ * TC1. Object is detected.
+ * TC2. Object is not detected.
+ * TC3. Sensor returning consistent values.
+ * TC4. Sensor returning noisy output. 
+ *
  * 
  * 
  * * @author Group1: Aseel Naji, Filip Isakovski, Antonino Sauleo, Maria-Bianca
@@ -29,7 +33,7 @@ public class isEmptyTests {
 	Position position;
 	UltrasoundSensor uOne;
 	UltrasoundSensor uTwo;
-
+ 
 	private int testAverage = 0;
 	private int maxTestArrayLenght = 10;
 
@@ -60,8 +64,8 @@ public class isEmptyTests {
 
 		// UltrasoundSensor.setUltrasoundSensorOne(temp1);
 		// UltrasoundSensor.setUltrasoundSensorTwo(temp2);
-		uOne.setUltrasoundSensorOne(temp1);
-		uTwo.setUltrasoundSensorTwo(temp2);
+		UltrasoundSensor.setUltrasoundSensorOne(temp1);
+		UltrasoundSensor.setUltrasoundSensorTwo(temp2);
 
 		car = new Car(uOne, uTwo, 0, false, false);
 	}
@@ -84,5 +88,17 @@ public class isEmptyTests {
 		// System.out.println("Average test: "+ distance);
 		assertEquals(testAverage, distance);
 	}
+
+	/**
+	 * TC2. Object is not detected.
+	*/
+	
+	/**
+    *TC3. Sensor returning consistent values.
+    */
+      
+	/**
+	 * TC4. Sensor returning noisy output. 
+    */
 
 }
