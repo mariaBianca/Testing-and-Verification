@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Random;
+
 /**
  * Construction of the ultrasound sensors
  * 
@@ -44,7 +46,7 @@ public class UltrasoundSensor {
 	//1 - random, 2 - 0, else - 1;
 	public static int[] getUltrasonicSensorOne(int random) {
 		Random rand = new Random();
-		int array[]={rand.nextInt(2), rand.nextInt(2)}, array2[] = {0, 0}, array3[] = {1, 1};
+		int array[]={rand.nextInt(2), rand.nextInt(2)}, array2[] = {0, 0}, array3[] = {150, 150};
 		if(random == 1){
 			return array;
 		}else if (random == 2){
@@ -57,7 +59,7 @@ public class UltrasoundSensor {
 	
 	public static int[] getUltrasoundSensorTwo(int random) {
 		Random rand = new Random();
-		int array[]={rand.nextInt(2), rand.nextInt(2)}, array2[] = {0, 0}, array3[] = {1, 1};
+		int array[]={rand.nextInt(2), rand.nextInt(2)}, array2[] = {0, 0}, array3[] = {150, 150};
 		if(random == 1){
 			return array;
 		}else if (random == 2){
