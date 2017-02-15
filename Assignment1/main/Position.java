@@ -11,11 +11,11 @@ public class Position {
 
 	/**
 	 * The car moves on the X-axis.
-	 * The Y-axis can be false or true, which represent parked or not parked. 
+	 * The parked-boolean can be false or true, which represent parked or not parked. 
 	 * Available represents if the car finds a place to park or not. 
 	 */
 	private int x;
-	private boolean y;
+	private boolean parked;
 	private boolean available;
 	
 	/**
@@ -46,7 +46,7 @@ public class Position {
 	 * Method that returns the parking status.
 	 */
 	public boolean getParkingStatus(){
-		return y;
+		return parked;
 		
 	}
 	
@@ -55,7 +55,7 @@ public class Position {
 	 */
 	public boolean setParked(boolean parked){
 		
-		return this.y;
+		return this.parked;
 	}
 	
 	/**
