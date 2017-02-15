@@ -179,10 +179,16 @@ public class Car implements CarInterface {
         }
     }
     
-    public void unpark() {
-        // TODO Auto-generated method stub
-        
-    }
+	public void steerLeft() {}
+
+	public void unpark() {
+		steerLeft();
+		try {
+			moveForward(uOne, uTwo);
+		} catch (StreetLengthException e) {
+		}
+		position.setParked(false);
+	}
     
     /**
      * Method that gets the position of the car.
