@@ -16,7 +16,7 @@ public interface CarInterface {
      * @return Position(data structure)
      * @throws StreetLengthException 
      */
-    public Position moveForward(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) 
+    public Position moveForward(int startPosition) 
     		throws StreetLengthException;
 
     /**
@@ -41,7 +41,7 @@ public interface CarInterface {
      *The car moves to the beginning of the current 5 meter free stretch of parking place, or until
      *the end of the street until an empty parking spot is detected. 
      */
-    public void park();
+    public void park(int sensor1, int sensor2);
    
     /**
      *The car moves forward (and to left) to front of the parking place.
