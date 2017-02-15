@@ -131,31 +131,49 @@ public class Car implements CarInterface {
 	}
 	
 	//Does the parking maneuver
-	public void park(){
-		System.out.println("Car parked!");
+	public void parkingManeuver(){
+		System.out.println("Parking the car...");
+		position.setParked(true);
 	}
 	
-	//use a counter
 	//Assuming that sensors return int. values which represent meters.
-	public void park(int distance[], UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) {
-		Position pos = getPosition();
-		int i = 0;
-		boolean foundPlace = false, foundBeggining = false;
+	public void park() {
+		int i = 0, distance = 0;
+		UltrasoundSensor ultrasoundOne = null, ultrasoundTwo = null;
 		
-		if (!pos.getParkingStatus()) {
-			if(isEmpty(ultrasoundOne, ultrasoundTwo) > 1){
-				while(i<distance.length){
-					if(distance.length == 0 && !foundBeggining){
-						//moveForward(ultrasoundOne, ultrasoundTwo);
-					}
-					try{
-						pos = moveForward(ultrasoundOne, ultrasoundTwo);
-					}catch (StreetLengthException sle) {
-						// TODO: handle exception
-						System.out.println("Error! Can't park!");
-					}
+		int[] us1, us2;
+		
+		//2 = 0, 3 = 1;
+		//initialize the arrays
+		ultrasoundOne.setUltrasoundSensorOne(ultrasoundOne.getUltrasonicSensorOne(3));
+		ultrasoundTwo.setUltrasoundSensorTwo(ultrasoundTwo.getUltrasoundSensorTwo(3));
+		
+		while(!position.getParkingStatus()){
+			//check distance
+			ultrasoundOne.setUltrasoundSensorOne(ultrasoundOne.getUltrasonicSensorOne(3));
+			ultrasoundTwo.setUltrasoundSensorTwo(ultrasoundTwo.getUltrasoundSensorTwo(3));
+			distance = isEmpty(ultrasoundOne, ultrasoundTwo);
+			
+			if(distance==0){
+				i++;
+				try {
+					moveForward(ultrasoundOne, ultrasoundTwo);
+				} catch (StreetLengthException e) {
+					e.printStackTrace();
 				}
-				park();
+			}
+			
+			if(i==5){
+				parkingManeuver();
+			}
+			
+			if(distance>0){
+				i=0;
+				try {
+					moveForward(ultrasoundOne, ultrasoundTwo);
+				} catch (StreetLengthException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
