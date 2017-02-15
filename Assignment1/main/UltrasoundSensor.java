@@ -39,4 +39,31 @@ public class UltrasoundSensor {
 	public static int[] getUltrasoundSensorTwo() {
 		return ultrasoundSensorTwo;
 	}
+	
+	//ValueRandomizer
+	//1 - random, 2 - 0, else - 1;
+	public static int[] getUltrasonicSensorOne(int random) {
+		Random rand = new Random();
+		int array[]={rand.nextInt(2), rand.nextInt(2)}, array2[] = {0, 0}, array3[] = {1, 1};
+		if(random == 1){
+			return array;
+		}else if (random == 2){
+			return array2;
+		}else{
+			return array3;
+		}
+		
+	}
+	
+	public static int[] getUltrasoundSensorTwo(int random) {
+		Random rand = new Random();
+		int array[]={rand.nextInt(2), rand.nextInt(2)}, array2[] = {0, 0}, array3[] = {1, 1};
+		if(random == 1){
+			return array;
+		}else if (random == 2){
+			return array2;
+		}else{
+			return array3;
+		}
+	}
 }
