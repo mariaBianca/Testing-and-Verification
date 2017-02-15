@@ -42,7 +42,7 @@ public interface CarInterface {
      *the end of the street until an empty parking spot is detected. 
      * @throws StreetLengthException
      */
-    public void park(int sensor1, int sensor2);
+    public void park(int sensor1, int sensor2) throws StreetLengthException;
    
     /**
      *The car moves forward (and to left) to front of the parking place.
