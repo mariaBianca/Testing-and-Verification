@@ -30,16 +30,14 @@ public class Position {
 	 * Method that sets the position.
 	 * */
 	public void setPosition(int x){
-		if (x >= 0 && x <= 500){
-			this.x = x;
-		}
+		this.x = x;
 	}
 	
 	/**
 	 * Method that gets the position on the X-axis.
 	 */
 	public int getPositionOnStreet(){
-		return x;
+		return this.x;
 	}
 	
 	/**
