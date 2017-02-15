@@ -53,9 +53,8 @@ public class Position {
 	/**
 	 * Method that sets the parking status.
 	 */
-	public boolean setParked(boolean parked){
-		
-		return this.parked;
+	public void setParked(boolean parked){
+		this.parked = parked;
 	}
 	
 	/**
