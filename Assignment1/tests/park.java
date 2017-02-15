@@ -51,8 +51,8 @@ public class park {
      * TC1 The car executes the pre-programmed reverse parallel parking.
      */
     @Test
-    public void carExecutesPreProgrammedPark() {
-        car.park(3,3);
+    public void carExecutesPreProgrammedPark() throws StreetLengthException {
+        car.park(2,2);
         Boolean result = car.whereIs().getParkingStatus();
         assertNotNull(result);
         assertEquals((car.whereIs().getParkingStatus() == true) ,result);
@@ -62,7 +62,7 @@ public class park {
      * TC2 The car is already parked
      */
     @Test
-    public void carisParked() {
+    public void carisParked() throws StreetLengthException {
         Car car = new Car(null, null, 0, true, false); //*input* we should initialize before a car :)
         car.park(3,3);
         Boolean result = car.whereIs().getParkingStatus();
@@ -74,7 +74,7 @@ public class park {
      * TC3 the car never finds parking spot
      */
     @Test(expected = IllegalArgumentException.class)
-    public void isEmptyShouldThrowAnExceptionDistanceoutOfScope(){
+    public void isEmptyShouldThrowAnExceptionDistanceoutOfScope() throws StreetLengthException {
         car.park(2,2);
     }
     
