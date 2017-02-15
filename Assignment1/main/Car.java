@@ -77,40 +77,43 @@ public class Car implements CarInterface {
 		return pos;
 	}
 
-	public int isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) throws IllegalArgumentException {
-		int distance = 0, usArrayLenght, average = 0, count = 0;
-
-		int[] us1 = ultrasoundOne.getUltrasonicSensorOne(), us2 = ultrasoundTwo.getUltrasoundSensorTwo();
-
-		if (us1.length >= us2.length) {
-			usArrayLenght = us1.length;
-		} else {
-			usArrayLenght = us2.length;
-		}
-
-		for (int i = 0; i < usArrayLenght; i++) {
-			if((us1[i] > us2[i]+5) || (us1[i] < us2[i]-5) || (us2[i] < us1[i]-5) || (us2[i] > us1[i]+5)){
-				throw new IllegalArgumentException("Sensors different output!");
-			}
-			System.out.println("us1: " + us1[i] + " us2: " + us2[i]);
-			if (us1[i] <= 200 && us1[i] => 0) {
-				average += us1[i];
-				count++;
-			}
-			if (us2[i] <= 200 && us2[i] => 0) {
-				average += us2[i];
-				count++;
-			}
-		}
-		if (average > 0 && count > 0) {
-			distance = average / count;
-		}
-		if (distance < 0 || distance > 200) {
-			throw new IllegalArgumentException();
-			// System.out.println("Average: "+distance);
-		}
-		return distance;
-	}
+    public int isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) throws IllegalArgumentException {
+        int distance = 0, usArrayLenght, average = 0, count = 0;
+        
+        int[] us1 = ultrasoundOne.getUltrasonicSensorOne(), us2 = ultrasoundTwo.getUltrasoundSensorTwo();
+        
+        if (us1.length >= us2.length) {
+            usArrayLenght = us1.length;
+        } else {
+            usArrayLenght = us2.length;
+        }
+        
+        for (int i = 0; i < usArrayLenght; i++) {
+            
+            if((us1[i] > us2[i]+5) || (us1[i] < us2[i]-5) || (us2[i] < us1[i]-5) || (us2[i] > us1[i]+5)){
+                throw new IllegalArgumentException("Sensors different output!");
+            }
+            
+            if (us1[i] < 0 || us2[i] < 0 || us1[i] > 200 || us2[i] > 200) {
+                throw new IllegalArgumentException();
+                // System.out.println("Average: "+distance);
+            }
+            System.out.println("us1: " + us1[i] + " us2: " + us2[i]);
+            if (us1[i] <= 200 && us1[i] > 0) {
+                average += us1[i];
+                count++;
+            }
+            if (us2[i] <= 200 && us2[i] > 0) {
+                average += us2[i];
+                count++;
+            }
+        }
+        if (average > 0 && count > 0) {
+            distance = average / count;
+        }
+        
+        return distance;
+    }
 
 	public Position moveBackward(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
 			throws StreetLengthException {
