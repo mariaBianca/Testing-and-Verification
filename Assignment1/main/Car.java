@@ -129,46 +129,45 @@ public class Car implements CarInterface {
 		position.setParked(true);
 	}
 	
-	//Assuming that sensors return int. values which represent meters.
-	public void park() {
-		int i = 0, distance = 0;
-		
-		int[] us1, us2;
-		
-		//2 = 0, 3 = 1;
-		//initialize the arrays
-		uOne.setUltrasoundSensorOne(uOne.getUltrasonicSensorOne(3));
-		uTwo.setUltrasoundSensorTwo(uTwo.getUltrasoundSensorTwo(3));
-		
-		while(!position.getParkingStatus()){
-			//check distance
-			uOne.setUltrasoundSensorOne(uOne.getUltrasonicSensorOne(3));
-			uTwo.setUltrasoundSensorTwo(uTwo.getUltrasoundSensorTwo(3));
-			distance = isEmpty(uOne, uTwo);
-			
-			if(distance==0){
-				i++;
-				try {
-					moveForward(uOne, uTwo);
-				} catch (StreetLengthException e) {
-					e.printStackTrace();
-				}
-			}
-			
-			if(i==5){
-				parkingManeuver();
-			}
-			
-			if(distance>0){
-				i=0;
-				try {
-					moveForward(uOne, uTwo);
-				} catch (StreetLengthException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
+    //Assuming that sensors return int. values which represent meters.
+    //2 = 0, 3 = 1; this is for the random generator
+    public void park(int sensor1, int sensor2) {
+        int i = 0, distance = 0;
+        UltrasoundSensor ultrasoundOne = null, ultrasoundTwo = null;
+        
+        if(position.getParkingStatus()==true){
+            return;
+        }
+        while(position.getParkingStatus()== false){
+            //check distance
+            ultrasoundOne.setUltrasoundSensorOne(ultrasoundOne.getUltrasonicSensorOne(sensor1));
+            ultrasoundTwo.setUltrasoundSensorTwo(ultrasoundTwo.getUltrasoundSensorTwo(sensor2));
+            
+            distance = isEmpty(ultrasoundOne, ultrasoundTwo);
+            
+            if(distance==0){
+                i++;
+                try {
+                    moveForward(ultrasoundOne, ultrasoundTwo);
+                } catch (StreetLengthException e) {
+                    e.printStackTrace();
+                }
+            }
+            
+            if(i==5){
+                parkingManeuver();
+            }
+            
+            if(distance>0){
+                i=0;
+                try {
+                    moveForward(ultrasoundOne, ultrasoundTwo);
+                } catch (StreetLengthException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 	
 	public void steerLeft() {}
 
