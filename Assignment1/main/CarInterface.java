@@ -40,6 +40,7 @@ public interface CarInterface {
     /**
      *The car moves to the beginning of the current 5 meter free stretch of parking place, or until
      *the end of the street until an empty parking spot is detected. 
+     * @throws StreetLengthException
      */
     public void park(int sensor1, int sensor2);
    
