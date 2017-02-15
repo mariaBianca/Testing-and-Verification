@@ -153,7 +153,7 @@ public class Car implements CarInterface {
     //2 = 0, 3 = 1; this is for the random generator
     public void park(int sensor1, int sensor2) throws StreetLengthException {
         int i = 0, distance = 0;
-        UltrasoundSensor ultrasoundOne = null, ultrasoundTwo = null;
+        UltrasoundSensor ultrasoundOne = new UltrasoundSensor(), ultrasoundTwo = new UltrasoundSensor();
         
         if(position.getParkingStatus()==true){
             return;
