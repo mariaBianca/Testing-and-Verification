@@ -53,7 +53,7 @@ public class MoveForwardTests {
      */
 	@Test
 	public void moveForwardTest() throws StreetLengthException {
-		car.moveForward(uOne, uTwo);
+		car.moveForward(0);
 		assertEquals(1,car.getPosition().getPositionOnStreet());
 	}
 	
@@ -61,31 +61,32 @@ public class MoveForwardTests {
 	 * TC2. Car reaches the end of the street (Position.x == 500). 
 	 * @throws StreetLengthException 
 	 */
-	@Test                  //?
+	@Test
 	public void moveCarAtTheEndOfTheStreet() throws StreetLengthException{
-		car.setPosition(500);
+		//car.setPosition(500);
 		exception.expect(StreetLengthException.class);
-		car.moveForward(uOne, uTwo);
+		car.moveForward(500);
 //		assertEquals(500, car.getPosition().getPositionOnStreet());
 	}
 	
 	/**
 	 * TC3. Car starts moving before the beginning of the street (e.g. Position.x < 0). 
 	 */
-
+	@Test(expected = StreetLengthException.class)
 	public void moveCarBeforeTheEndOfTheStreet() throws StreetLengthException{
-		car.setPosition(-20);
-		exception.expect(StreetLengthException.class);
-		car.moveForward(uOne, uTwo);
+		//car.setPosition(-20);
+		//exception.expect(StreetLengthException.class);
+		car.moveForward(-20);
 	}
 
 	/**
 	 * TC4. Car starts moving after the end of the street (e.g. Position.x > 500).
 	 */
+	@Test
 	public void moveCarAfterTheEndOfTheStreet() throws StreetLengthException{
-		car.setPosition(750);
+		//car.setPosition(750);
 		exception.expect(StreetLengthException.class);
-		car.moveForward(uOne, uTwo);
+		car.moveForward(800);
 	}
 	
 }
