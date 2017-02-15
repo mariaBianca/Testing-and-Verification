@@ -16,10 +16,6 @@ public class Car implements CarInterface {
 	private int[] uOne;
 	@SuppressWarnings("unused")
 	private int[] uTwo;
-//	@SuppressWarnings("unused")
-//	private boolean isParked;
-//	@SuppressWarnings("unused")
-//	private boolean isAvailable;
 	
 
 	/**
@@ -181,9 +177,16 @@ public class Car implements CarInterface {
 		}
 	}
 
-	public void unpark() {
-		// TODO Auto-generated method stub
+	public void steerLeft() {}
 
+	public void unpark() {
+		UltrasoundSensor ultrasoundOne = null, ultrasoundTwo = null;
+		steerLeft();
+		try {
+			moveForward(ultrasoundOne, ultrasoundTwo);
+		} catch (StreetLengthException e) {
+		}
+		position.setParked(false);
 	}
 
 	/**
