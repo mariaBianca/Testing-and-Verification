@@ -93,11 +93,11 @@ public class Car implements CarInterface {
 				throw new IllegalArgumentException("Sensors different output!");
 			}
 			System.out.println("us1: " + us1[i] + " us2: " + us2[i]);
-			if (us1[i] <= 200 && us1[i] > 0) {
+			if (us1[i] <= 200 && us1[i] => 0) {
 				average += us1[i];
 				count++;
 			}
-			if (us2[i] <= 200 && us2[i] > 0) {
+			if (us2[i] <= 200 && us2[i] => 0) {
 				average += us2[i];
 				count++;
 			}
