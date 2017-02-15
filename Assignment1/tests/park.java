@@ -10,6 +10,7 @@ import org.junit.Test;
 import main.Car;
 import main.Position;
 import main.UltrasoundSensor;
+import newErrorHandling.StreetLengthException;
 
 /**
  * Description: When a 5 meter free stretch of parking place is detected,
@@ -73,7 +74,7 @@ public class park {
     /*
      * TC3 the car never finds parking spot
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = StreetLengthException.class)
     public void isEmptyShouldThrowAnExceptionDistanceoutOfScope() throws StreetLengthException {
         car.park(2,2);
     }
