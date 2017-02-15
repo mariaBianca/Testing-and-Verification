@@ -89,6 +89,10 @@ public class Car implements CarInterface {
 		}
 
 		for (int i = 0; i < usArrayLenght; i++) {
+			if((us1[i] > us2[i]+5) || (us1[i] < us2[i]-5) || (us2[i] < us1[i]-5) || (us2[i] > us1[i]+5)){
+				throw new IllegalArgumentException("Sensors different output!");
+			}
+			System.out.println("us1: " + us1[i] + " us2: " + us2[i]);
 			if (us1[i] <= 200 && us1[i] > 0) {
 				average += us1[i];
 				count++;
@@ -131,16 +135,24 @@ public class Car implements CarInterface {
 		System.out.println("Car parked!");
 	}
 	
+	//use a counter
 	//Assuming that sensors return int. values which represent meters.
-	public void park(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) {
+	public void park(int distance[], UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) {
 		Position pos = getPosition();
+		int i = 0;
+		boolean foundPlace = false, foundBeggining = false;
+		
 		if (!pos.getParkingStatus()) {
 			if(isEmpty(ultrasoundOne, ultrasoundTwo) > 1){
-				while(isEmpty(ultrasoundOne, ultrasoundTwo) > 1){
+				while(i<distance.length){
+					if(distance.length == 0 && !foundBeggining){
+						//moveForward(ultrasoundOne, ultrasoundTwo);
+					}
 					try{
 						pos = moveForward(ultrasoundOne, ultrasoundTwo);
 					}catch (StreetLengthException sle) {
 						// TODO: handle exception
+						System.out.println("Error! Can't park!");
 					}
 				}
 				park();
