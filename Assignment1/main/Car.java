@@ -46,6 +46,7 @@ public class Car implements CarInterface {
         try{
             position = moveForward(position.getPositionOnStreet());
         }catch(StreetLengthException e){
+            throw e;
         }
         
     }
@@ -150,7 +151,7 @@ public class Car implements CarInterface {
     
     //Assuming that sensors return int. values which represent meters.
     //2 = 0, 3 = 1; this is for the random generator
-    public void park(int sensor1, int sensor2) {
+    public void park(int sensor1, int sensor2) throws StreetLengthException {
         int i = 0, distance = 0;
         UltrasoundSensor ultrasoundOne = null, ultrasoundTwo = null;
         
@@ -169,8 +170,7 @@ public class Car implements CarInterface {
                 try {
                     moveForward();
                 } catch (StreetLengthException e) {
-                    e.printStackTrace();
-                    throw new IllegalArgumentException();
+                    throw e;
                 }
             }
             
@@ -183,7 +183,7 @@ public class Car implements CarInterface {
                 try {
                     moveForward();
                 } catch (StreetLengthException e) {
-                    e.printStackTrace();
+                    throw e;
                 }
             }
         }
