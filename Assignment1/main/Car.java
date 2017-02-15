@@ -44,7 +44,7 @@ public class Car implements CarInterface {
 	
 	public void moveForward() throws StreetLengthException {
 		try{
-			position.setPosition(moveForward(position.getPositionOnStreet()).getPositionOnStreet());
+			position = moveForward(position.getPositionOnStreet());
 		}catch(StreetLengthException e){
 		}
 		
@@ -75,11 +75,11 @@ public class Car implements CarInterface {
 				// pos.setPosition(-1);
 			}
 
-			if (isEmpty(uTwo, uTwo) > 100) {
-				position.setParked(true);
-			}
-		} else {
-			position.setParked(false);
+//			if (isEmpty(uTwo, uTwo) > 100) {
+//				position.setParked(true);
+//			}
+//		} else {
+//			position.setParked(false);
 		}
 
 		return pos;
@@ -163,7 +163,7 @@ public class Car implements CarInterface {
             if(distance==0){
                 i++;
                 try {
-                    moveForward(ultrasoundOne, ultrasoundTwo);
+                    moveForward();
                 } catch (StreetLengthException e) {
                     e.printStackTrace();
                 }
@@ -176,7 +176,7 @@ public class Car implements CarInterface {
             if(distance>0){
                 i=0;
                 try {
-                    moveForward(ultrasoundOne, ultrasoundTwo);
+                    moveForward();
                 } catch (StreetLengthException e) {
                     e.printStackTrace();
                 }
