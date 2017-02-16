@@ -8,7 +8,7 @@ import newErrorHandling.StreetLengthException;
  * @author Group1: Aseel Naji, Filip Isakovski, Antonino Sauleo, Maria-Bianca Cindroi
  */
 
-public interface CarInterface {
+public interface Car {
 	
    /**
      * The car moves forward with one meter, by querying the ultrasound sensors
@@ -51,6 +51,7 @@ public interface CarInterface {
     
     /**
      * @return Position (of the car)
+     * @throws StreetLengthException 
      */
-    public Position whereIs();
+    public Position whereIs() throws StreetLengthException;
 }
