@@ -104,20 +104,31 @@ public class MockScenarioTest {
      * 4. The car tries to park while parked
      * 5. The car unparks
      * 6. The car tries to unpark while unparked
-     * 7. The car tries to park, but never finds a spot.
+     * 7. Car moves backward
+     * 8. The car tries to park, but never finds a spot.
      */
     
     @SuppressWarnings("unchecked")
 	@Test(expected = StreetLengthException.class)
     public void isEmptyShouldThrowAnExceptionDistanceoutOfScope() throws StreetLengthException {
+    	
     	when(position.getPositionOnStreet()).thenReturn(-15);
+    	//whereIs doesn't allow out-of-Bounds check
+    	car.getPosition();
+
+    	car.setPosition(2);
     	car.whereIs();
-    	when(position.getPositionOnStreet()).thenReturn(2);
+
+    	
     	car.park(2,2);
     	car.park(3,3);
     	car.unpark();
     	car.unpark();
+    	car.moveBackward();
     	car.park(3,3);
+    	verify(position).getParkingStatus();
+    	
+    	//TODO: SENSORS RANDOM CHECK && OUT OF BOUNDS CHECK && CAR OUT OF BOUNDS CHECK
     	
     	/**
     	 * Set up the expectations, we don't need to verify or assert any value.
