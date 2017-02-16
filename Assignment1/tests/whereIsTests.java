@@ -25,7 +25,7 @@ import newErrorHandling.StreetLengthException;
  *       TC3. Car doesn’t find free parking space.
  */
 
-public class WhereIsTest {
+public class WhereIsTests {
     
     Car car;
     Position position;
