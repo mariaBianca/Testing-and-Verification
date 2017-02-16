@@ -259,16 +259,15 @@ public class Car implements CarInterface {
         if(position.getParkingStatus() == false){
             return;
         }
+        steerLeft();
         try {
             /**
-             * The car moves forward 20
+             * The car moves forward
              */
-            moveForward(20);
+            moveForward();
             position.setParked(false);
         } catch (StreetLengthException e) {
-        }
-        steerLeft();
-        
+        }  
     }
     
     public Position whereIs() throws StreetLengthException {
