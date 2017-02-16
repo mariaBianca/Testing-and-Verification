@@ -189,15 +189,23 @@ public class Car implements CarInterface {
         }
     }
     
-    public void steerLeft() {}
+    public String steerLeft() {
+        String left = "The car turned left";
+        System.out.println("The car turned left");
+        return left;
+    }
     
     public void unpark() {
-        steerLeft();
+        if(position.getParkingStatus() == false){
+            return;
+        }
         try {
             moveForward(20);
+            position.setParked(false);
         } catch (StreetLengthException e) {
         }
-        position.setParked(false);
+        steerLeft();
+        
     }
     
     /**
