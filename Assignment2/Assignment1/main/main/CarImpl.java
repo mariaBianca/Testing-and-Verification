@@ -23,7 +23,7 @@ public class CarImpl implements Car {
      * y - boolean isParked
      * available - boolean isAvailable
      */
-    public Car(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, boolean parked, boolean available) {
+    public CarImpl(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, boolean parked, boolean available) {
         
         int[] tmpUOne = UltrasoundSensor.getUltrasonicSensorOne();
         int[] tmpUTwo = UltrasoundSensor.getUltrasoundSensorTwo();
@@ -301,19 +301,5 @@ public class CarImpl implements Car {
         return position;
     }
     
-    /**
-     * Set method
-     */
-    
-    public void setuOne(UltrasoundSensor uOne) {
-        this.uOne = uOne;
-    }
-    
-    /**
-     * Set method
-     */
-    
-    public void setuTwo(UltrasoundSensor uTwo) {
-        this.uTwo = uTwo;
-    }
+  
 }
