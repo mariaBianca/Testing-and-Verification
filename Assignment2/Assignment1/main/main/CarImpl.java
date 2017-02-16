@@ -9,7 +9,7 @@ import newErrorHandling.StreetLengthException;
  * Cindroi
  */
 
-public class Car implements CarInterface {
+public class CarImpl implements Car {
     
     private Position position;
     @SuppressWarnings("unused")
@@ -23,19 +23,19 @@ public class Car implements CarInterface {
      * y - boolean isParked
      * available - boolean isAvailable
      */
-    public Car(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, boolean parked, boolean available) {
+    public CarImpl(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, boolean parked, boolean available) {
         
         int[] tmpUOne = UltrasoundSensor.getUltrasonicSensorOne();
         int[] tmpUTwo = UltrasoundSensor.getUltrasoundSensorTwo();
         
-        this.uOne.setUltrasoundSensorOne(tmpUOne);
-        this.uTwo.setUltrasoundSensorTwo(tmpUTwo);
+        UltrasoundSensor.setUltrasoundSensorOne(tmpUOne);
+        UltrasoundSensor.setUltrasoundSensorTwo(tmpUTwo);
         
         position = new Position(x, parked, available);
     }
-  
+    
     /**
-     * Method to set the position 
+     * Method to set the position
      * @param x
      */
     public void setPosition(int x) {
@@ -65,10 +65,10 @@ public class Car implements CarInterface {
         
         // if the car is not parked
         if (!pos.getParkingStatus()) {
-        	/**
-        	 * if the car is on the street within the parameters of the street,
-        	 * then move forward
-        	 */
+            /**
+             * if the car is on the street within the parameters of the street,
+             * then move forward
+             */
             if(pos.getPositionOnStreet() < 0 || pos.getPositionOnStreet() > 499){
                 throw new StreetLengthException();
             }
@@ -86,7 +86,7 @@ public class Car implements CarInterface {
     public int isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) throws IllegalArgumentException {
         int distance = 0, usArrayLenght, average = 0, count = 0;
         
-        int[] us1 = ultrasoundOne.getUltrasonicSensorOne(), us2 = ultrasoundTwo.getUltrasoundSensorTwo();
+        int[] us1 = UltrasoundSensor.getUltrasonicSensorOne(), us2 = UltrasoundSensor.getUltrasoundSensorTwo();
         /**
          * This compares the two arrays for the sensors and the array that has the biggest array length will be
          * the size for running the for loop
@@ -98,29 +98,29 @@ public class Car implements CarInterface {
         }
         
         for (int i = 0; i < usArrayLenght; i++) {
-        	
-        	/**
-        	 * Here we check if the values between the two sensors are consistent, if they are not we throw an
-        	 * IllegalArgumentException
-        	 */
+            
+            /**
+             * Here we check if the values between the two sensors are consistent, if they are not we throw an
+             * IllegalArgumentException
+             */
             
             if((us1[i] > us2[i]+5) || (us1[i] < us2[i]-5) || (us2[i] < us1[i]-5) || (us2[i] > us1[i]+5)){
                 throw new IllegalArgumentException("Sensors different output!");
             }
             
             /**
-        	 * Here we check if the values are within the range, if they are not we throw an
-        	 * IllegalArgumentException
-        	 */
+             * Here we check if the values are within the range, if they are not we throw an
+             * IllegalArgumentException
+             */
             if (us1[i] < 0 || us2[i] < 0 || us1[i] > 200 || us2[i] > 200) {
                 throw new IllegalArgumentException();
             }
-          
+            
             /**
-        	 * If the value is within the range we take that value and add it to the average.
-        	 * We increment the counter and we will use it later for doing the average operation. 
-        	 * 
-        	 */
+             * If the value is within the range we take that value and add it to the average.
+             * We increment the counter and we will use it later for doing the average operation.
+             *
+             */
             if (us1[i] <= 200 && us1[i] > 0) {
                 average += us1[i];
                 count++;
@@ -132,9 +132,9 @@ public class Car implements CarInterface {
         }
         
         /**
-    	 * Here we assign distance equal to the average distance
-    	 * 
-    	 */
+         * Here we assign distance equal to the average distance
+         *
+         */
         if (average > 0 && count > 0) {
             distance = average / count;
         }
@@ -154,12 +154,12 @@ public class Car implements CarInterface {
         /**
          * If the car is not parked
          */
-      
+        
         if (!pos.getParkingStatus()) {
-        	/**
-        	 * if the car is on the street within the parameters of the street,
-        	 * then move backward
-        	 */
+            /**
+             * if the car is on the street within the parameters of the street,
+             * then move backward
+             */
             if (pos.getPositionOnStreet() >= 1 && pos.getPositionOnStreet() <= 500) {
                 pos.setPosition(pos.getPositionOnStreet() - 1);
             } else
@@ -181,29 +181,28 @@ public class Car implements CarInterface {
     //2 = 0, 3 = 1; this is for the random generator
     public void park(int sensor1, int sensor2) throws StreetLengthException {
         int i = 0, distance = 0;
-        boolean parking = position.getParkingStatus();
         UltrasoundSensor ultrasoundOne = new UltrasoundSensor(), ultrasoundTwo = new UltrasoundSensor();
         
         /**
          * here if the car is already parked it just returns
          */
-        if(parking==true){
+        if(position.getParkingStatus()==true){
             return;
         }
         
         /**
          * while the car is not parked it will look for an empty spot
          */
-        while(parking== false){
-        	/**
-        	 * Here we depending if we input 3,3 2,2 or 1,1 our method will return different outputs of the sensors
-        	 * check UltrasoundSensor class.
-        	 */
-            ultrasoundOne.setUltrasoundSensorOne(ultrasoundOne.getUltrasonicSensorOne(sensor1));
-            ultrasoundTwo.setUltrasoundSensorTwo(ultrasoundTwo.getUltrasoundSensorTwo(sensor2));
+        while(position.getParkingStatus()== false){
+            /**
+             * Here we depending if we input 3,3 2,2 or 1,1 our method will return different outputs of the sensors
+             * check UltrasoundSensor class.
+             */
+            UltrasoundSensor.setUltrasoundSensorOne(UltrasoundSensor.getUltrasonicSensorOne(sensor1));
+            UltrasoundSensor.setUltrasoundSensorTwo(UltrasoundSensor.getUltrasoundSensorTwo(sensor2));
             
             /**
-             * Here we measure if there is something to the right 
+             * Here we measure if there is something to the right
              */
             distance = isEmpty(ultrasoundOne, ultrasoundTwo);
             
@@ -213,10 +212,10 @@ public class Car implements CarInterface {
             if(distance==0){
                 i++;
                 try {
-                	/**
-                	 * The car moves forward to measure the next spot
-                	 * If the car reaches the end of the street it throws an exception
-                	 */
+                    /**
+                     * The car moves forward to measure the next spot
+                     * If the car reaches the end of the street it throws an exception
+                     */
                     moveForward(); //Moves the car forward from its current location
                 } catch (StreetLengthException e) {
                     throw e;
@@ -227,8 +226,6 @@ public class Car implements CarInterface {
              */
             if(i==5){
                 parkingManeuver();
-                position.setParked(true);
-                return;
             }
             /**
              * This will reset the counter if the car measures something in the right side.
@@ -236,9 +233,9 @@ public class Car implements CarInterface {
             if(distance>0){
                 i=0;
                 try {
-                	/**
-                	 * The car moves forward to measure the next spot.
-                	 */
+                    /**
+                     * The car moves forward to measure the next spot.
+                     */
                     moveForward(); //Moves the car forward from its current location
                 } catch (StreetLengthException e) {
                     throw e;
@@ -248,39 +245,37 @@ public class Car implements CarInterface {
     }
     
     public String steerLeft() {
-    	/**
-    	 * Here we return a string so later we can test it to know if it turned left.
-    	 */
-    	String left = "The car turned left";
-    	return left;
+        /**
+         * Here we return a string so later we can test it to know if it turned left.
+         */
+        String left = "The car turned left";
+        return left;
     }
     
     public void unpark() {
-    	/**
-    	 * here we just return in case the car is not parked.
-    	 */
-    	if(position.getParkingStatus() == false){
-    		return;
-    	}
+        /**
+         * here we just return in case the car is not parked.
+         */
+        if(position.getParkingStatus() == false){
+            return;
+        }
         steerLeft();
         try {
-        	/**
-        	 * The car moves forward 20
-        	 */
+            /**
+             * The car moves forward
+             */
             moveForward();
             position.setParked(false);
         } catch (StreetLengthException e) {
-        }
-
-      
+        }  
     }
     
     public Position whereIs() throws StreetLengthException {
-    	/**
-    	 * If the car is outside the ranges of the street we throw an StreetLengthException
-    	 */
+        /**
+         * If the car is outside the ranges of the street we throw an StreetLengthException
+         */
         if(getPosition().getPositionOnStreet()>500 || getPosition().getPositionOnStreet()<0){
-        		throw new StreetLengthException();
+            throw new StreetLengthException();
         }
         /**
          * This returns the car position
