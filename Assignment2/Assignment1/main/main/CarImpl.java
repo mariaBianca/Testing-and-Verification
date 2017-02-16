@@ -91,11 +91,8 @@ public class CarImpl implements Car {
          * This compares the two arrays for the sensors and the array that has the biggest array length will be
          * the size for running the for loop
          */
-        if (us1.length >= us2.length) {
-            usArrayLenght = us1.length;
-        } else {
-            usArrayLenght = us2.length;
-        }
+
+        usArrayLenght = us1.length;
         
         for (int i = 0; i < usArrayLenght; i++) {
         	
