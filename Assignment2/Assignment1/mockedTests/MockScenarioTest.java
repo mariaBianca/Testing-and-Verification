@@ -59,7 +59,7 @@ public class MockScenarioTest {
     }
     
     /**
-     * Scenario 2 - The car is parked and then moves forward until the end of the street.
+     * Scenario 2 - The car is parked. It unparks and then moves forward until the end of the street.
      * Moves back 10 meters and tries to park again.
      */
     @Test
