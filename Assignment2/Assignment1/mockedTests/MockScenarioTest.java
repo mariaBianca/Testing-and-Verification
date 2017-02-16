@@ -14,6 +14,7 @@ import static org.mockito.Mockito.*;
 
 import main.Car;
 import main.Position;
+import main.UltrasoundSensor;
 import newErrorHandling.StreetLengthException;
 
 public class MockScenarioTest {
@@ -59,12 +60,14 @@ public class MockScenarioTest {
     }
     
     /**
-     * Scenario 2 - The car is parked. It unparks and then goes to the end of the street.
+     * Scenario 2 - The car is parked. It unparks and thengoes to the end of the street.
      * Moves back 10 meters and tries to park again.
      */
     @Test
     public void carUnparksAndMoves() throws StreetLengthException {
     	Car car = new Car(null, null, 0, true, false);
+    	UltrasoundSensor uOne = new UltrasoundSensor();
+    	UltrasoundSensor uTwo = new UltrasoundSensor();
     	
     	//check if car is parked
     	when(position.getParkingStatus()).thenReturn(true);
@@ -80,10 +83,10 @@ public class MockScenarioTest {
     	verify(position).getPositionOnStreet();
     	
     	//go back 10 meters and try to park the car again
-    	when(position.getPositionOnStreet()).thenReturn(489);
+    	when(position.getPositionOnStreet()).thenReturn(490);
+    	position = car.moveBackward(position);
     	car.park(2, 2);
     	when(position.getParkingStatus()).thenReturn(true);
-    	assertTrue(position.getParkingStatus());
     	
     	/**
     	 * To verify that the mocking worked we use a static method from the class Mockito
