@@ -9,7 +9,7 @@ import newErrorHandling.StreetLengthException;
  * Cindroi
  */
 
-public class Car implements CarInterface {
+public class CarImpl implements CarInterface {
     
     private Position position;
     @SuppressWarnings("unused")
@@ -23,13 +23,13 @@ public class Car implements CarInterface {
      * y - boolean isParked
      * available - boolean isAvailable
      */
-    public Car(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, boolean parked, boolean available) {
+    public CarImpl(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, boolean parked, boolean available) {
         
         int[] tmpUOne = UltrasoundSensor.getUltrasonicSensorOne();
         int[] tmpUTwo = UltrasoundSensor.getUltrasoundSensorTwo();
         
-        this.uOne.setUltrasoundSensorOne(tmpUOne);
-        this.uTwo.setUltrasoundSensorTwo(tmpUTwo);
+        UltrasoundSensor.setUltrasoundSensorOne(tmpUOne);
+        UltrasoundSensor.setUltrasoundSensorTwo(tmpUTwo);
         
         position = new Position(x, parked, available);
     }
@@ -86,7 +86,7 @@ public class Car implements CarInterface {
     public int isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) throws IllegalArgumentException {
         int distance = 0, usArrayLenght, average = 0, count = 0;
         
-        int[] us1 = ultrasoundOne.getUltrasonicSensorOne(), us2 = ultrasoundTwo.getUltrasoundSensorTwo();
+        int[] us1 = UltrasoundSensor.getUltrasonicSensorOne(), us2 = UltrasoundSensor.getUltrasoundSensorTwo();
         /**
          * This compares the two arrays for the sensors and the array that has the biggest array length will be
          * the size for running the for loop
@@ -198,8 +198,8 @@ public class Car implements CarInterface {
              * Here we depending if we input 3,3 2,2 or 1,1 our method will return different outputs of the sensors
              * check UltrasoundSensor class.
              */
-            ultrasoundOne.setUltrasoundSensorOne(ultrasoundOne.getUltrasonicSensorOne(sensor1));
-            ultrasoundTwo.setUltrasoundSensorTwo(ultrasoundTwo.getUltrasoundSensorTwo(sensor2));
+            UltrasoundSensor.setUltrasoundSensorOne(UltrasoundSensor.getUltrasonicSensorOne(sensor1));
+            UltrasoundSensor.setUltrasoundSensorTwo(UltrasoundSensor.getUltrasoundSensorTwo(sensor2));
             
             /**
              * Here we measure if there is something to the right
