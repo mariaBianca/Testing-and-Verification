@@ -19,7 +19,7 @@ import main.UltrasoundSensor;
  *           TC2. Car is not parked.
  *           TC3. Car is not on the street.
  */
-public class unPark {
+public class unParkTests {
     
     Car car;
     Position position;
