@@ -3,7 +3,7 @@ package main;
 import newErrorHandling.StreetLengthException;
 
 /**
- * Implementation of the CarInterface.
+ * Implementation of the Car.
  *
  * * @author Group1: Aseel Naji, Filip Isakovski, Antonino Sauleo, Maria-Bianca
  * Cindroi
@@ -23,7 +23,7 @@ public class CarImpl implements Car {
      * y - boolean isParked
      * available - boolean isAvailable
      */
-    public CarImpl(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, boolean parked, boolean available) {
+    public Car(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, boolean parked, boolean available) {
         
         int[] tmpUOne = UltrasoundSensor.getUltrasonicSensorOne();
         int[] tmpUTwo = UltrasoundSensor.getUltrasoundSensorTwo();
@@ -267,9 +267,7 @@ public class CarImpl implements Car {
     	/**
     	 * here we just return in case the car is not parked.
     	 */
-    	if(position.getParkingStatus() == false){
-    		return;
-    	}
+    	
         steerLeft();
         try {
         	/**
@@ -300,6 +298,4 @@ public class CarImpl implements Car {
     public Position getPosition() {
         return position;
     }
-    
-  
 }
