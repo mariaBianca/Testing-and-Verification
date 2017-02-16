@@ -59,8 +59,6 @@ public class Car implements CarInterface {
         Position pos = position;
         pos.setPosition(startPosition);
         
-        System.out.println("POSITION : "+pos.getPositionOnStreet());
-        
         // if the car is not parked
         if (!pos.getParkingStatus()) {
             // if the car is on the street within the parameters of the street,
@@ -73,16 +71,8 @@ public class Car implements CarInterface {
                 pos.setPosition(pos.getPositionOnStreet() + 1);
             } else {
                 throw new StreetLengthException();
-                // pos.setPosition(-1);
             }
-            
-            //			if (isEmpty(uTwo, uTwo) > 100) {
-            //				position.setParked(true);
-            //			}
-            //		} else {
-            //			position.setParked(false);
-        }
-        
+        }       
         return pos;
     }
     
@@ -105,9 +95,8 @@ public class Car implements CarInterface {
             
             if (us1[i] < 0 || us2[i] < 0 || us1[i] > 200 || us2[i] > 200) {
                 throw new IllegalArgumentException();
-                // System.out.println("Average: "+distance);
             }
-            System.out.println("us1: " + us1[i] + " us2: " + us2[i]);
+
             if (us1[i] <= 200 && us1[i] > 0) {
                 average += us1[i];
                 count++;
@@ -145,7 +134,6 @@ public class Car implements CarInterface {
     
     //Does the parking maneuver
     public void parkingManeuver(){
-        System.out.println("Parking the car...");
         position.setParked(true);
     }
     
@@ -212,8 +200,10 @@ public class Car implements CarInterface {
      * Method that gets the position of the car.
      */
     
-    public Position whereIs() {
-        
+    public Position whereIs() throws StreetLengthException {
+        if(getPosition().getPositionOnStreet()>500 || getPosition().getPositionOnStreet()<0){
+        		throw new StreetLengthException();
+        }
         return getPosition();
     }
     
