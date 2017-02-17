@@ -4,29 +4,27 @@ import static org.junit.Assert.*;
 
 import java.util.Random;
 
-import main.Car;
+import main.CarImpl;
 import main.Position;
 import main.UltrasoundSensor;
-import newErrorHandling.StreetLengthException;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- * "isEmpty" test case implementations. TC1. Object is detected. TC2. Object is
- * not detected. TC3. Sensor returning consistent values. TC4. Sensor returning
- * noisy output.
- *
- *
- * * @author Group1: Aseel Naji, Filip Isakovski, Antonino Sauleo, Maria-Bianca
- * Cindroi
+ * "isEmpty" test case implementations. 
+ * TC1. Object is detected. 
+ * TC2. Object is not detected. 
+ * TC3. Sensor returning noisy output.
+ * TC4. Sensor returning consistent values.
+ * 
+ * * @author Group1: Aseel Naji, Filip Isakovski, Antonino Sauleo, Maria-Bianca Cindroi
  */
 public class isEmptyTests {
     
-    Car car;
+    CarImpl car;
     Position position;
     UltrasoundSensor uOne;
     UltrasoundSensor uTwo;
@@ -58,11 +56,9 @@ public class isEmptyTests {
         
         testAverage /= (testArray1AvCount + testArray2AvCount);
         
-        // UltrasoundSensor.setUltrasoundSensorOne(temp1);
-        // UltrasoundSensor.setUltrasoundSensorTwo(temp2);
-        uOne.setUltrasoundSensorOne(temp1);
-        uTwo.setUltrasoundSensorTwo(temp2);
-        car = new Car(uOne, uTwo, 0, false, false);
+        UltrasoundSensor.setUltrasoundSensorOne(temp1);
+        UltrasoundSensor.setUltrasoundSensorTwo(temp2);
+        car = new CarImpl(uOne, uTwo, 0, false, false);
     }
     
     /**
@@ -72,9 +68,8 @@ public class isEmptyTests {
     public final ExpectedException exception = ExpectedException.none();
     
     /**
-     * TC1. Object is Detected
-     */
-    
+     * TC1. Object is detected.
+     */    
     @Test
     public void distanceShouldGiveAValidOutput(){
         int distance = car.isEmpty(uOne, uTwo);
@@ -85,7 +80,7 @@ public class isEmptyTests {
     }
     
     /**
-     * TC2. Object is not detected
+     * TC2. Object is not detected.
      */
     @Test
     public void objectIsNotDetected(){
@@ -93,7 +88,7 @@ public class isEmptyTests {
         UltrasoundSensor.setUltrasoundSensorOne(temp);
         UltrasoundSensor.setUltrasoundSensorTwo(temp);
         
-        Car car = new Car(uOne, uTwo, 0, false, false);
+        CarImpl car = new CarImpl(uOne, uTwo, 0, false, false);
         
         int distance = car.isEmpty(uOne, uTwo);
         assertNotNull(distance);
@@ -101,7 +96,7 @@ public class isEmptyTests {
     }
     
     /**
-     * TC3. Sensor returning noisy output
+     * TC3. Sensor returning noisy output.
      */
     @Test(expected = IllegalArgumentException.class)
     public void isEmptyShouldThrowAnExceptionDistanceoutOfScope(){
@@ -109,11 +104,10 @@ public class isEmptyTests {
         UltrasoundSensor.setUltrasoundSensorOne(temp);
         UltrasoundSensor.setUltrasoundSensorTwo(temp);
         
-        Car car = new Car(uOne, uTwo, 0, false, false);
+        CarImpl car = new CarImpl(uOne, uTwo, 0, false, false);
         
         car.isEmpty(uOne, uTwo); //here the sensors need out of bound input
     }
-    
     
     /**
      * TC4. Sensors have inconsistent values.
@@ -125,11 +119,9 @@ public class isEmptyTests {
         UltrasoundSensor.setUltrasoundSensorOne(temp);
         UltrasoundSensor.setUltrasoundSensorTwo(temp2);
         
-        Car car = new Car(uOne, uTwo, 0, false, false); 
+        CarImpl car = new CarImpl(uOne, uTwo, 0, false, false); 
         
         car.isEmpty(uOne, uTwo); 
     }
-    
-    
     
 }
