@@ -24,6 +24,8 @@ public class MockScenarioTest {
     @Mock
     Position position;
     private CarImpl car; //We are re-using the class by making it a Field
+    private UltrasoundSensor uOne;
+    private UltrasoundSensor uTwo;
     
     
     @Before
@@ -32,7 +34,7 @@ public class MockScenarioTest {
          * Initialize the mocks
          */
         MockitoAnnotations.initMocks(this);
-        car = new CarImpl(null, null, 0, false, false);
+        car = new CarImpl(uOne, uTwo, 0, false, false);
     }
     
     /**
@@ -136,5 +138,39 @@ public class MockScenarioTest {
          */
         when(position.getParkingStatus()).thenThrow(StreetLengthException.class);
         
+    }
+    
+    /**
+     * TC3. Sensor returning noisy output
+     * @throws StreetLengthException
+     * @throws IllegalArgumentException
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void isEmptyShouldThrowAnExceptionDistanceoutOfScope2() throws IllegalArgumentException, StreetLengthException{
+        int temp[] = {210, 200, 200, 500, 400, 700, 900, 200, 300};
+        UltrasoundSensor.setUltrasoundSensorOne(temp);
+        UltrasoundSensor.setUltrasoundSensorTwo(temp);
+        
+        Car car = new CarImpl(uOne, uTwo, 0, false, false);
+        
+        car.isEmpty(uOne, uTwo); //here the sensors need out of bound input
+    }
+    
+    
+    /**
+     * TC4. Sensors have inconsistent values.
+     * @throws StreetLengthException
+     * @throws IllegalArgumentException
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void isEmptyHaveInconsistentValues() throws IllegalArgumentException, StreetLengthException{
+        int temp[] = {2,2,2,2,2};
+        int temp2[] = {10,10,10,10,10};
+        UltrasoundSensor.setUltrasoundSensorOne(temp);
+        UltrasoundSensor.setUltrasoundSensorTwo(temp2);
+        
+        Car car = new CarImpl(uOne, uTwo, 0, false, false); 
+        
+        car.isEmpty(uOne, uTwo); 
     }
 }
