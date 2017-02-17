@@ -7,32 +7,32 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.Car;
+import main.CarImpl;
 import main.Position;
 import main.UltrasoundSensor;
 import newErrorHandling.StreetLengthException;
 
 /**
- * Description: When a 5 meter free stretch of parking place is detected,
- * the car moves to the beginning of the stretch and does a pre-programmed
- * reverse parallel parking maneuver. If no parking space is detected, the
- * car moves to the end of the street until a 5 meter of free parking space is found.
- * Pre-condition: There must be 5 meter of free parking space detected.
- * Post-condition: The car does reverse parallel parking maneuver.
- * Test-cases:
- *       TC1. The car has detected free parking space.
- *       TC2. The car is already parked.
- *       TC3. Car doesn’t find free parking space.
+ * "whereIs" test case implementation.
+ * TC1. The car's position is before the end of the street.
+ * TC2. The car’s position is after the beginning of the street.
+ * TC3. The car is parked.
+ *       
+ *  @author Group1: Aseel Naji, Filip Isakovski, Antonino Sauleo, Maria-Bianca Cindroi
+
  */
 
-public class WhereIsTests {
+public class whereIsTests {
     
-    Car car;
+    CarImpl car;
     Position position;
     UltrasoundSensor uOne;
     UltrasoundSensor uTwo;
     private int maxTestArrayLenght = 10;
-    
+
+    /**
+	 * Initialize the car. 
+	 */
     @Before
     public void setup(){
         Random rand = new Random();
@@ -42,14 +42,14 @@ public class WhereIsTests {
             temp1[i] = rand.nextInt(199);
             temp2[i] = temp1[i];
         }
-        uOne.setUltrasoundSensorOne(temp1);
-        uTwo.setUltrasoundSensorTwo(temp2);
-        car = new Car(uOne, uTwo, 0, false, false);
+        UltrasoundSensor.setUltrasoundSensorOne(temp1);
+        UltrasoundSensor.setUltrasoundSensorTwo(temp2);
+        car = new CarImpl(uOne, uTwo, 0, false, false);
         
     }
     
-    /*
-     * TC1 The cars’ position isn’t beyond the end of the street.
+    /**
+     * TC1. The car's position is before the end of the street.
      */
     @Test(expected = StreetLengthException.class)
     public void carBeyondStreetTest() throws StreetLengthException{
@@ -57,8 +57,8 @@ public class WhereIsTests {
         car.whereIs();
     }
     
-    /*
-     * TC2 The cars’ position isn’t beyond the beginning of the street.
+    /**
+     * TC2. The car’s position is after the beginning of the street.
      */
     @Test(expected = StreetLengthException.class)
     public void carBeforeStreetStart() throws StreetLengthException{
@@ -66,8 +66,8 @@ public class WhereIsTests {
         car.whereIs();
     }
     
-    /*
-     * TC3 The car is parked.
+    /**
+     * TC3. The car is parked.
      */
     @Test
     public void isParked() throws StreetLengthException{
