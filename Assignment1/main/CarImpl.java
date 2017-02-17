@@ -3,13 +3,13 @@ package main;
 import newErrorHandling.StreetLengthException;
 
 /**
- * Implementation of the CarInterface.
+ * Implementation of the Car interface.
  *
  * * @author Group1: Aseel Naji, Filip Isakovski, Antonino Sauleo, Maria-Bianca
  * Cindroi
  */
 
-public class CarImpl implements CarInterface {
+public class CarImpl implements Car {
     
     private Position position;
     @SuppressWarnings("unused")
@@ -19,11 +19,13 @@ public class CarImpl implements CarInterface {
     
     
     /**
-     * "Car constructor.
-     * y - boolean isParked
-     * available - boolean isAvailable
+     *Car constructor.
+     *boolean - boolean isParked
+     *available - boolean isAvailable
+     *@param uOne, uTwo, x, parked, available
      */
-    public CarImpl(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, boolean parked, boolean available) {
+    public CarImpl(UltrasoundSensor uOne, UltrasoundSensor uTwo, int x, 
+    		boolean parked, boolean available) {
         
         int[] tmpUOne = UltrasoundSensor.getUltrasonicSensorOne();
         int[] tmpUTwo = UltrasoundSensor.getUltrasoundSensorTwo();
@@ -55,7 +57,10 @@ public class CarImpl implements CarInterface {
         
     }
     /**
-     * "Method implementing the "moveForward" but it moves the car forward from any inputed location
+     * Method implementing the "moveForward" but it moves the car forward from any inputed location@throws .
+     * @throws StreetLengthException
+     * @param startPosition
+     * @return Position
      */
     public Position moveForward(int startPosition)
     throws StreetLengthException {
@@ -83,7 +88,14 @@ public class CarImpl implements CarInterface {
         return pos;
     }
     
-    public int isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) throws IllegalArgumentException {
+    /**
+     * Method implementing the "isEmtpy" method
+     * @throws IllegalArgumentException
+     * @param ultrasoundOne, ultrasoundTwo
+     * @return distance
+     */
+    public int isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) 
+    		throws IllegalArgumentException {
         int distance = 0, usArrayLenght, average = 0, count = 0;
         
         int[] us1 = UltrasoundSensor.getUltrasonicSensorOne(), us2 = UltrasoundSensor.getUltrasoundSensorTwo();
@@ -146,7 +158,12 @@ public class CarImpl implements CarInterface {
         return distance;
     }
     
-    
+    /**
+     * Method implementing the "moveBackward" method
+     * @throws StreetLengthException
+     * @param ultrasoundOne, ultrasoundTwo
+     * @return pos
+     */
     public Position moveBackward(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo)
     throws StreetLengthException {
         
@@ -171,14 +188,19 @@ public class CarImpl implements CarInterface {
         return pos;
     }
     
-    //Does the parking maneuver
+    /**
+     * Method that does the parking maneuver
+     */
     public void parkingManeuver(){
         System.out.println("Parking the car...");
         position.setParked(true);
     }
     
-    //Assuming that sensors return int. values which represent meters.
-    //2 = 0, 3 = 1; this is for the random generator
+    /**
+     * Method implementing the "park" method
+     * @throws StreetLengthExcception
+     * @param sensor1, 
+     */   
     public void park(int sensor1, int sensor2) throws StreetLengthException {
         int i = 0, distance = 0;
         UltrasoundSensor ultrasoundOne = new UltrasoundSensor(), ultrasoundTwo = new UltrasoundSensor();
@@ -244,6 +266,10 @@ public class CarImpl implements CarInterface {
         }
     }
     
+    /**
+     * Method implementing a check of a left steering
+     * @return left
+     */
     public String steerLeft() {
         /**
          * Here we return a string so later we can test it to know if it turned left.
@@ -252,6 +278,9 @@ public class CarImpl implements CarInterface {
         return left;
     }
     
+    /**
+     * Method implementing the "unpark" method
+     */
     public void unpark() {
         /**
          * here we just return in case the car is not parked.
@@ -270,6 +299,11 @@ public class CarImpl implements CarInterface {
         }  
     }
     
+    /**
+     * Method implementing the "whereIs" method
+     * @throws StreetLengthException
+     * @return getPosition()
+     */
     public Position whereIs() throws StreetLengthException {
         /**
          * If the car is outside the ranges of the street we throw an StreetLengthException
@@ -285,13 +319,15 @@ public class CarImpl implements CarInterface {
     
     /**
      * Method that returns the position of the car.
+     * @return position
      */
     public Position getPosition() {
         return position;
     }
     
     /**
-     * Set method
+     * Setter for the first ultrasound sensor values.
+     * @param uOne
      */
     
     public void setuOne(UltrasoundSensor uOne) {
@@ -299,7 +335,8 @@ public class CarImpl implements CarInterface {
     }
     
     /**
-     * Set method
+     * Setter for the second ultrasound sensor values.
+     * @param uTwo
      */
     
     public void setuTwo(UltrasoundSensor uTwo) {
