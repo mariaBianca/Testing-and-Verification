@@ -3,7 +3,7 @@ package main;
 import java.util.Random;
 
 /**
- * Construction of the ultrasound sensors
+ * Definition of the UltrasoundSensor object.
  *
  * * @author Group1: Aseel Naji, Filip Isakovski, Antonino Sauleo, Maria-Bianca Cindroi
  */
@@ -15,21 +15,24 @@ public class UltrasoundSensor {
     
     /**
      *Set the first's ultrasound sensor's value to a given value
-     * @return
-     * @return
+     * @param value[]
      */
     public static void setUltrasoundSensorOne(int[] value) {
         ultrasoundSensorOne = value;
     }
     
     /**
-     *Get the first's ultrasound sensor's value
-     *@return ultrasoundSenosr
+     *Get the first ultrasound sensor's value
+     *@return ultrasoundSensorOne
      */
     public static int[] getUltrasonicSensorOne() {
         return ultrasoundSensorOne;
     }
     
+    /**
+     *Set the second ultrasound sensor's value to a given value
+     * @param value[]
+     */
     public static void setUltrasoundSensorTwo(int[] value) {
         ultrasoundSensorTwo = value;
     }
@@ -43,10 +46,10 @@ public class UltrasoundSensor {
     }
     
     /**
-     * This method depending if the user chooses 1 2 or 3 is returned with a random number, array with 0 values or with a
-     * fixed number 150.
+     * This method is depending if the user chooses 1 2 or 3 is returned with a random number, 
+     * array with 0 values or with a fixed number 150.
      * @param random
-     * @return
+     * @return array
      */
     public static int[] getUltrasonicSensorOne(int random) {
         Random rand = new Random();
@@ -62,10 +65,10 @@ public class UltrasoundSensor {
     }
     
     /**
-     * This method depending if the user chooses 1 2 or 3 is returned with a random number, array with 0 values or with a
-     * fixed number 150.
+     * This method is depending if the user chooses 1 2 or 3 is returned with a random number,
+     *  array with 0 values or with a fixed number 150.
      * @param random
-     * @return
+     * @return array
      */
     public static int[] getUltrasoundSensorTwo(int random) {
         Random rand = new Random();
