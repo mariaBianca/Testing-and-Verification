@@ -7,26 +7,29 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.Car;
+import main.CarImpl;
 import main.Position;
 import main.UltrasoundSensor;
+import newErrorHandling.StreetLengthException;
 /**
- * Description: The car moves forward (and to the left) to the front of the parking space if the car is parked.
- * Pre-condition: The car must be parked.
- * Post_condition: The car has moved forward and to the left.
- * Test-cases:
- *           TC1. The car is parked.
- *           TC2. Car is not parked.
- *           TC3. Car is not on the street.
+ * 	"unpark" test case implementation.
+ *  TC1. The car is parked.
+ *  TC2. Car is not parked.
+ *  TC3. Car steers left.
+ *           
+ *  @author Group1: Aseel Naji, Filip Isakovski, Antonino Sauleo, Maria-Bianca Cindroi
  */
 public class unParkTests {
     
-    Car car;
+    CarImpl car;
     Position position;
     UltrasoundSensor uOne;
     UltrasoundSensor uTwo;
     private int maxTestArrayLenght = 10;
-    
+
+    /**
+	 * Initialize the car. 
+	 */
     @Before
     public void setup(){
         Random rand = new Random();
@@ -36,37 +39,40 @@ public class unParkTests {
             temp1[i] = rand.nextInt(199);
             temp2[i] = temp1[i];
         }
-        uOne.setUltrasoundSensorOne(temp1);
-        uTwo.setUltrasoundSensorTwo(temp2);
-        car = new Car(uOne, uTwo, 0, false, false);
+        UltrasoundSensor.setUltrasoundSensorOne(temp1);
+        UltrasoundSensor.setUltrasoundSensorTwo(temp2);
+        car = new CarImpl(uOne, uTwo, 0, false, false);
         
     }
     
-    /*
+    /**
      * TC1 The car is parked.
+     * @throws StreetLengthException
      */
     @Test
-    public void carisParked() {
-        Car car = new Car(uOne, uTwo, 0, true, false); //*input* we should initialize before a car :)
+    public void carisParked() throws StreetLengthException {
+        CarImpl car = new CarImpl(uOne, uTwo, 0, true, false); //*input* we should initialize before a car :)
         car.unpark();
         Boolean result = car.whereIs().getParkingStatus();
         assertNotNull(result);
         assertEquals(false ,result);
     }
     
-    /*
+    /**
      * TC2 The car is not parked.
+     * @throws StreetLengthException
      */
     @Test
-    public void carisNotParked() {
+    public void carisNotParked() throws StreetLengthException {
         car.unpark();
         Boolean result = car.whereIs().getParkingStatus();
         assertNotNull(result);
         assertEquals(false ,result);
     }
     
-    /*
-     * TC3 The car turns left.
+    /**
+     * TC3 The car steers left.
+     * @throws StreetLengthException
      */
     @Test
     public void carTurnsLeft() {
