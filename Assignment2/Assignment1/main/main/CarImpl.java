@@ -28,8 +28,8 @@ public class CarImpl implements Car {
         int[] tmpUOne = UltrasoundSensor.getUltrasonicSensorOne();
         int[] tmpUTwo = UltrasoundSensor.getUltrasoundSensorTwo();
         
-        this.uOne.setUltrasoundSensorOne(tmpUOne);
-        this.uTwo.setUltrasoundSensorTwo(tmpUTwo);
+        UltrasoundSensor.setUltrasoundSensorOne(tmpUOne);
+        UltrasoundSensor.setUltrasoundSensorTwo(tmpUTwo);
         
         position = new Position(x, parked, available);
     }
@@ -69,15 +69,15 @@ public class CarImpl implements Car {
              * if the car is on the street within the parameters of the street,
              * then move forward
              */
+        	
             if(pos.getPositionOnStreet() < 0 || pos.getPositionOnStreet() > 499){
                 throw new StreetLengthException();
             }
             
+            
             if (pos.getPositionOnStreet() >= 0 && pos.getPositionOnStreet() <= 499) {
                 pos.setPosition(pos.getPositionOnStreet() + 1);
-            } else {
-                throw new StreetLengthException();
-            }
+            } 
         }
         
         return pos;
@@ -86,7 +86,7 @@ public class CarImpl implements Car {
     public int isEmpty(UltrasoundSensor ultrasoundOne, UltrasoundSensor ultrasoundTwo) throws IllegalArgumentException {
         int distance = 0, usArrayLenght, average = 0, count = 0;
         
-        int[] us1 = ultrasoundOne.getUltrasonicSensorOne(), us2 = ultrasoundTwo.getUltrasoundSensorTwo();
+        int[] us1 = UltrasoundSensor.getUltrasonicSensorOne(), us2 = UltrasoundSensor.getUltrasoundSensorTwo();
         /**
          * This compares the two arrays for the sensors and the array that has the biggest array length will be
          * the size for running the for loop
@@ -144,11 +144,8 @@ public class CarImpl implements Car {
     }
     
     public void moveBackward() throws StreetLengthException{
-        try{
             position = moveBackward(position);
-        }catch (StreetLengthException e) {
-            throw e;
-        }
+       
     }
     
     public Position moveBackward(Position pos)
@@ -166,8 +163,6 @@ public class CarImpl implements Car {
              */
             if (pos.getPositionOnStreet() >= 1 && pos.getPositionOnStreet() <= 500) {
                 pos.setPosition(pos.getPositionOnStreet() - 1);
-            } else {
-                throw new StreetLengthException();
             }
         }
         /**
@@ -194,18 +189,18 @@ public class CarImpl implements Car {
          */
         if(parking==true){
             return;
-        }
+        } else{
         
         /**
          * while the car is not parked it will look for an empty spot
          */
-        while(parking== false){
+        while(parking == false){
             /**
              * Here we depending if we input 3,3 2,2 or 1,1 our method will return different outputs of the sensors
              * check UltrasoundSensor class.
              */
-            ultrasoundOne.setUltrasoundSensorOne(ultrasoundOne.getUltrasonicSensorOne(sensor1));
-            ultrasoundTwo.setUltrasoundSensorTwo(ultrasoundTwo.getUltrasoundSensorTwo(sensor2));
+            UltrasoundSensor.setUltrasoundSensorOne(UltrasoundSensor.getUltrasonicSensorOne(sensor1));
+            UltrasoundSensor.setUltrasoundSensorTwo(UltrasoundSensor.getUltrasoundSensorTwo(sensor2));
             
             /**
              * Here we measure if there is something to the right
@@ -217,15 +212,13 @@ public class CarImpl implements Car {
              */
             if(distance==0){
                 i++;
-                try {
+               
                     /**
                      * The car moves forward to measure the next spot
                      * If the car reaches the end of the street it throws an exception
                      */
                     moveForward(); //Moves the car forward from its current location
-                } catch (StreetLengthException e) {
-                    throw e;
-                }
+                
             }
             /**
              * if we counted for 5 empty spots, the car makes the pre-built parking function.
@@ -249,6 +242,7 @@ public class CarImpl implements Car {
                     throw e;
                 }
             }
+        }
         }
     }
     
@@ -280,8 +274,9 @@ public class CarImpl implements Car {
         /**
          * If the car is outside the ranges of the street we throw an StreetLengthException
          */
+    	/*
         if(getPosition().getPositionOnStreet()>500 || getPosition().getPositionOnStreet()<0){
-            throw new StreetLengthException();
+            return getPosition();
         }
         /**
          * This returns the car position
