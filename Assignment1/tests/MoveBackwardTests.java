@@ -2,7 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import main.Car;
+import main.CarImpl;
 import main.Position;
 import main.UltrasoundSensor;
 import newErrorHandling.StreetLengthException;
@@ -17,14 +17,14 @@ import org.junit.rules.ExpectedException;
  * TC1. The car moves backwards. 
  * TC2. Car reaches the end of the street (Position.x == 0). 
  * TC3. Car starts moving before the beginning of the street (e.g. Position.x < 0).
- * TC4. Car position is initialized beyond the end of the street (e.g. Position.x > 500).
+ * TC4. Car's position is initialized beyond the end of the street (e.g. Position.x > 500).
  * 
  * * @author Group1: Aseel Naji, Filip Isakovski, Antonino Sauleo, Maria-Bianca Cindroi
  */
 
 public class MoveBackwardTests {
 
-	Car car;
+	CarImpl car;
 	Position position;
 	UltrasoundSensor uOne;
 	UltrasoundSensor uTwo;
@@ -38,7 +38,7 @@ public class MoveBackwardTests {
     	UltrasoundSensor.setUltrasoundSensorOne(temp);
     	UltrasoundSensor.setUltrasoundSensorTwo(temp);
 
-    	car = new Car(uOne, uTwo, 0, false, false);
+    	car = new CarImpl(uOne, uTwo, 0, false, false);
 	}
     
     /**
@@ -67,29 +67,28 @@ public class MoveBackwardTests {
 	public void moveBackwardFromBeginningOfStreet() throws StreetLengthException{
 		exception.expect(StreetLengthException.class);
 		car.moveBackward(uOne, uTwo);
-		//assertEquals(0, car.getPosition().getPositionOnStreet());
 	} 
 
 	/**
 	 * TC3. Car starts moving before the beginning of the street (e.g. Position.x < 0).
+	 *  @throws StreetLengthException 
 	 */
 	@Test
 	public void moveBackwardBeforeBeginningOfStreet() throws StreetLengthException{
 		car.setPosition(-45);
 		exception.expect(StreetLengthException.class);
 		car.moveBackward(uOne, uTwo);
-		//assertEquals(0, car.getPosition().getPositionOnStreet());
 	}
 	
 	/**
-	 * TC4. Car position is initialized beyond the end of the street (e.g. Position.x > 500).
+	 * TC4. Car's position is initialized beyond the end of the street (e.g. Position.x > 500).
+	 * @throws StreetLengthException
 	 */
 	@Test
 	public void moveBackwardBeyondStreet() throws StreetLengthException {
 		car.setPosition(567);
 		exception.expect(StreetLengthException.class);
 		car.moveBackward(uOne, uTwo);
-		//assertEquals(8, car.getPosition().getPositionOnStreet());
 	}
 
 }
