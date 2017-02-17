@@ -1,14 +1,11 @@
-package tests;
+package mockedTests;
 
 import static org.junit.Assert.*;
-
-import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 
 import static org.mockito.Mockito.*;
 
@@ -69,8 +66,8 @@ public class MockScenarioTest {
     @Test
     public void carUnparksAndMoves() throws StreetLengthException {
         Car car = new CarImpl(null, null, 0, true, false);
-        UltrasoundSensor uOne = new UltrasoundSensor();
-        UltrasoundSensor uTwo = new UltrasoundSensor();
+        new UltrasoundSensor();
+        new UltrasoundSensor();
         
         //check if car is parked
         when(position.getParkingStatus()).thenReturn(true);
@@ -172,5 +169,49 @@ public class MockScenarioTest {
         Car car = new CarImpl(uOne, uTwo, 0, false, false); 
         
         car.isEmpty(uOne, uTwo); 
+    }
+    
+    /**
+     * TC5. Sensors have inconsistent values.
+     * @throws StreetLengthException
+     * @throws IllegalArgumentException
+     */
+    @Test
+    public void moveBackwardThrowsException() throws StreetLengthException{
+    	when(position.getPositionOnStreet()).thenReturn(-15);
+        car.moveBackward();
+        new Position(750, false, false);
+    }
+    
+    /**
+     * TC5. Sensors have inconsistent values.
+     * @throws StreetLengthException
+     * @throws IllegalArgumentException
+     */
+    @Test
+    public void moveBackwardThrowsException2() throws StreetLengthException{
+    	//when(position.getPositionOnStreet()).thenReturn(-15);
+        Position pos = new Position(750, false, false);
+        car.moveBackward(pos);
+    }
+    
+    @Test
+    public void whereIsException() throws StreetLengthException {
+    	 when(position.getPositionOnStreet()).thenReturn(750);
+         //whereIs doesn't allow out-of-Bounds check
+         
+         car.whereIs();
+        
+    }
+    
+    @Test(expected = StreetLengthException.class)
+    public void moveForwardException() throws StreetLengthException {
+        car.moveForward(750);
+        
+    }
+    @Test(expected = StreetLengthException.class)
+    public void moveForwardException2() throws StreetLengthException {
+        car.moveForward(-200);
+        
     }
 }
