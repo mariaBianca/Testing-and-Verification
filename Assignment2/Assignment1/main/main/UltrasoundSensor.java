@@ -49,11 +49,13 @@ public class UltrasoundSensor {
 	 * @return
 	 */
 	public static int[] getUltrasonicSensorOne(int random) {
-		Random rand = new Random();
-		int array[]={rand.nextInt(2), rand.nextInt(2)}, array2[] = {0, 0}, array3[] = {150, 150};
-		if(random == 1){
-			return array;
-		}else if (random == 2){
+		new Random();
+		int array2[] = {0, 0}, array3[] = {150, 150};
+		//int array[]={rand.nextInt(2), rand.nextInt(2)};
+		//if(random == 1){
+		//	return array;
+		//s}else 
+			if (random == 2){
 			return array2;
 		}else{
 			return array3;
@@ -69,10 +71,10 @@ public class UltrasoundSensor {
 	 */
 	public static int[] getUltrasoundSensorTwo(int random) {
 		Random rand = new Random();
-		int array[]={rand.nextInt(2), rand.nextInt(2)}, array2[] = {0, 0}, array3[] = {150, 150};
-		if(random == 1){
-			return array;
-		}else if (random == 2){
+		rand.nextInt(2);
+		rand.nextInt(2);
+		int array2[] = {0, 0}, array3[] = {150, 150};
+		if (random == 2){
 			return array2;
 		}else{
 			return array3;
