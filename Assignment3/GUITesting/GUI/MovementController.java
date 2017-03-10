@@ -21,7 +21,7 @@ public class MovementController implements MovementControllerInterface {
 
 	@Override
 	public boolean reverse(int position) throws SensorInputException {
-		if(position < 500 && position >= 0){
+		if(position <= 500 && position >= 0){
 			return true;
 		}else{
 			return false;

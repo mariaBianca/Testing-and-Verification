@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 
@@ -12,23 +14,27 @@ public class CarImpl implements Car {
 	private UltrasonicSensor ultraSonicSensor1;
 	private UltrasonicSensor ultraSonicSensor2;
 	private MovementController movementController;
-	private int[] parkingPlaces;
+	private ArrayList<Integer> parkingPlaces = new ArrayList<>();
 	private int counter=0;
 	private int position;
 	
-	public CarImpl(int location, boolean parked) {
+	public CarImpl(int location, boolean parked, ArrayList<Integer> parkingPlaces) {
 		
 		setSensor1(new UltrasonicSensor());
 		setSensor2(new UltrasonicSensor());
 		this.position = location;
+		
+		this.parkingPlaces = parkingPlaces;
+//		for(int i = 0; i<this.parkingPlaces.length; i++){
+//			System.out.println(this.parkingPlaces[i]);
+//		}
 
 		try {
 			setMovementController(new MovementController(parked));
 		} catch (SensorInputException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		setCounter(new int[501]);
+
 		
 	}
 		public void setSensor2(UltrasonicSensor ultrasonicSensor) {
@@ -53,15 +59,15 @@ public class CarImpl implements Car {
 				
 				int result = isEmpty();
 				if(result>100){
-					int[] counterArray = getCounter();				
-					counterArray[counter] = 1;
+					ArrayList<Integer> counterArray = getParkingPlaces();				
+					counterArray.set(counter, 1);
 					counter++;
 					setCounter(counterArray);
 				}else{
-					int[] tmp = getCounter();
-					tmp[counter] = 0;
+					ArrayList<Integer> counterArray = getParkingPlaces();
+					counterArray.set(counter, 0);
 					counter++;
-					setCounter(tmp);
+					setCounter(counterArray);
 				}
 			}
 		}
@@ -138,7 +144,7 @@ public class CarImpl implements Car {
 	 * moves the car backwards
 	 */
 	public void moveBackward() throws SensorInputException {
-		if(!getMovementController().isParked()){	//if the car is not parked at a certain position
+		if(!getMovementController().isParked()){
 			if(getLocation() <=500 && getLocation()> 0){
 				if(movementController.reverse(position)){
 					position--;
@@ -148,13 +154,15 @@ public class CarImpl implements Car {
 	}
 	
 	public void parkingManuever(){
-		//park
+		if(this.getLocation() < 500){
+			movementController.setParked(true);
+		}
 	}
 	
 	public void park() throws SensorInputException {
-		
-		parkingManuever();
-		movementController.setParked(true);	
+		if(parkingPlaces.get(this.getLocation()) == 0){
+			parkingManuever();
+		}
 	}
 	
 	/**
@@ -181,12 +189,12 @@ public class CarImpl implements Car {
 		this.movementController = movementController;
 	}
 	
-	public int[] getCounter() {
+	public ArrayList<Integer> getParkingPlaces() {
 		
 		return this.parkingPlaces;
 	}
 
-	public void setCounter(int[] i) {
+	public void setCounter(ArrayList<Integer> i) {
 		this.parkingPlaces=i;
 	}
 	
