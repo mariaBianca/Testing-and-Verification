@@ -112,6 +112,13 @@ streetLength++</label>
 		</location>
 		<init ref="id11"/>
 		<transition>
+			<source ref="id11"/>
+			<target ref="id11"/>
+			<label kind="synchronisation" x="-858" y="-238">endofstreet?</label>
+			<nail x="-850" y="-204"/>
+			<nail x="-756" y="-263"/>
+		</transition>
+		<transition>
 			<source ref="id10"/>
 			<target ref="id8"/>
 			<label kind="synchronisation" x="-501" y="-229">park!</label>
@@ -123,13 +130,6 @@ streetLength++</label>
 			<nail x="-348" y="-68"/>
 			<nail x="-756" y="-68"/>
 			<nail x="-756" y="-144"/>
-		</transition>
-		<transition>
-			<source ref="id11"/>
-			<target ref="id8"/>
-			<label kind="synchronisation" x="-629" y="-416">endofstreet?</label>
-			<nail x="-841" y="-424"/>
-			<nail x="-255" y="-424"/>
 		</transition>
 		<transition>
 			<source ref="id8"/>
