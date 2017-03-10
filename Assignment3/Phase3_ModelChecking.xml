@@ -2,7 +2,7 @@
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
 	<declaration>// Place global declarations here.
-chan  park, unpark, move, parked, unparked, endofstreet;
+chan  park, unpark, move, parked, unparked, endofstreet, continueOnStreet;
 //variables used for the lanes communicating within themselves
 bool firstParked = false;
 bool secondParked = false;</declaration>
@@ -10,22 +10,23 @@ bool secondParked = false;</declaration>
 		<name x="5" y="5">Lane</name>
 		<declaration>// Place local declarations here.
 int streetLength  = 0;</declaration>
-		<location id="id0" x="-6978" y="-1666">
-			<name x="-7012" y="-1700">go_back_to_street</name>
+		<location id="id0" x="-7072" y="-1666">
+			<name x="-7106" y="-1649">continue</name>
 		</location>
-		<location id="id1" x="-6120" y="-1666">
-			<name x="-6154" y="-1649">streetend</name>
+		<location id="id1" x="-6222" y="-1666">
+			<name x="-6256" y="-1649">streetend</name>
 		</location>
-		<location id="id2" x="-6494" y="-1666">
+		<location id="id2" x="-6596" y="-1666">
+			<name x="-6655" y="-1632">continue_on_street</name>
 		</location>
-		<location id="id3" x="-6638" y="-1997">
-			<name x="-6689" y="-2031">parking_spot2</name>
+		<location id="id3" x="-6706" y="-1997">
+			<name x="-6757" y="-2031">parking_spot2</name>
 		</location>
-		<location id="id4" x="-6791" y="-1666">
-			<name x="-6961" y="-1632">find_parking_spot2</name>
+		<location id="id4" x="-6859" y="-1666">
+			<name x="-6919" y="-1640">find_parking_spot2</name>
 		</location>
-		<location id="id5" x="-7191" y="-1989">
-			<name x="-7225" y="-2023">parking_spot1</name>
+		<location id="id5" x="-7208" y="-1997">
+			<name x="-7242" y="-2031">parking_spot1</name>
 		</location>
 		<location id="id6" x="-7335" y="-1666">
 			<name x="-7394" y="-1649">find_parking_spot1</name>
@@ -37,51 +38,52 @@ int streetLength  = 0;</declaration>
 		<transition>
 			<source ref="id0"/>
 			<target ref="id4"/>
-			<label kind="assignment" x="-6944" y="-1649">streetLength++</label>
+			<label kind="synchronisation" x="-7029" y="-1683">continueOnStreet?</label>
+			<label kind="assignment" x="-7021" y="-1666">streetLength++</label>
 		</transition>
 		<transition>
 			<source ref="id6"/>
 			<target ref="id0"/>
-			<label kind="guard" x="-7216" y="-1640">firstParked == true</label>
-			<label kind="assignment" x="-7208" y="-1657">streetLength++</label>
+			<label kind="guard" x="-7258" y="-1649">firstParked == true</label>
+			<label kind="assignment" x="-7250" y="-1666">streetLength++</label>
 		</transition>
 		<transition>
 			<source ref="id5"/>
 			<target ref="id0"/>
-			<label kind="guard" x="-7106" y="-1819">firstParked == true</label>
-			<label kind="synchronisation" x="-7072" y="-1844">unpark?</label>
-			<label kind="assignment" x="-7106" y="-1802">firstParked = false,
+			<label kind="guard" x="-7165" y="-1819">firstParked == true</label>
+			<label kind="synchronisation" x="-7157" y="-1836">unpark?</label>
+			<label kind="assignment" x="-7174" y="-1802">firstParked = false,
 streetLength++</label>
 		</transition>
 		<transition>
 			<source ref="id2"/>
 			<target ref="id1"/>
-			<label kind="guard" x="-6485" y="-1657">secondParked == false || firstParked == false</label>
-			<label kind="synchronisation" x="-6341" y="-1683">endofstreet?</label>
-			<label kind="assignment" x="-6375" y="-1640">streetLength++</label>
+			<label kind="guard" x="-6570" y="-1657">secondParked == false || firstParked == false</label>
+			<label kind="synchronisation" x="-6468" y="-1683">endofstreet?</label>
+			<label kind="assignment" x="-6460" y="-1640">streetLength++</label>
 		</transition>
 		<transition>
 			<source ref="id3"/>
 			<target ref="id2"/>
-			<label kind="guard" x="-6571" y="-1793">secondParked == true</label>
-			<label kind="synchronisation" x="-6545" y="-1810">unpark?</label>
-			<label kind="assignment" x="-6562" y="-1776">secondParked = false,
+			<label kind="guard" x="-6698" y="-1836">secondParked == true</label>
+			<label kind="synchronisation" x="-6672" y="-1853">unpark?</label>
+			<label kind="assignment" x="-6689" y="-1819">secondParked = false,
 streetLength++</label>
 		</transition>
 		<transition>
 			<source ref="id4"/>
 			<target ref="id2"/>
-			<label kind="guard" x="-6723" y="-1649">secondParked == true</label>
-			<label kind="assignment" x="-6698" y="-1666">streetLength++</label>
-			<nail x="-6681" y="-1666"/>
+			<label kind="guard" x="-6791" y="-1649">secondParked == true</label>
+			<label kind="assignment" x="-6766" y="-1666">streetLength++</label>
+			<nail x="-6749" y="-1666"/>
 		</transition>
 		<transition>
 			<source ref="id4"/>
 			<target ref="id3"/>
-			<label kind="guard" x="-6791" y="-1819">secondParked == false</label>
-			<label kind="synchronisation" x="-6732" y="-1844">park?</label>
-			<label kind="assignment" x="-6783" y="-1802">secondParked = true</label>
-			<nail x="-6783" y="-1674"/>
+			<label kind="guard" x="-6885" y="-1819">secondParked == false</label>
+			<label kind="synchronisation" x="-6808" y="-1844">park?</label>
+			<label kind="assignment" x="-6885" y="-1802">secondParked = true</label>
+			<nail x="-6851" y="-1674"/>
 		</transition>
 		<transition>
 			<source ref="id6"/>
@@ -100,43 +102,43 @@ streetLength++</label>
 	<template>
 		<name>Car</name>
 		<declaration>clock wait;
-bool unparked = true;
 </declaration>
-		<location id="id8" x="-952" y="-195">
-			<name x="-988" y="-178">exit_street</name>
+		<location id="id8" x="-773" y="-127">
+			<name x="-809" y="-110">exit_street</name>
 		</location>
 		<location id="id9" x="-331" y="-195">
 			<name x="-297" y="-229">perform_parking</name>
 		</location>
 		<location id="id10" x="-603" y="-195">
-			<name x="-645" y="-178">find_parking_spot</name>
+			<name x="-663" y="-170">find_parking_spot</name>
 		</location>
-		<location id="id11" x="-799" y="-195">
-			<name x="-842" y="-186">start</name>
+		<location id="id11" x="-807" y="-221">
+			<name x="-850" y="-212">start</name>
 		</location>
 		<init ref="id11"/>
 		<transition>
-			<source ref="id11"/>
+			<source ref="id10"/>
 			<target ref="id8"/>
-			<label kind="synchronisation" x="-909" y="-212">endofstreet!</label>
+			<label kind="synchronisation" x="-756" y="-170">endofstreet!</label>
 		</transition>
 		<transition>
 			<source ref="id9"/>
-			<target ref="id11"/>
-			<label kind="guard" x="-442" y="-110">wait&gt;5</label>
-			<label kind="synchronisation" x="-433" y="-93">unpark!</label>
-			<nail x="-331" y="-85"/>
+			<target ref="id10"/>
+			<label kind="guard" x="-585" y="-148">wait&gt;5</label>
+			<label kind="synchronisation" x="-585" y="-131">unpark!</label>
+			<nail x="-348" y="-34"/>
 		</transition>
 		<transition>
 			<source ref="id10"/>
-			<target ref="id11"/>
-			<label kind="guard" x="-790" y="-272">unparked == false</label>
-			<nail x="-603" y="-348"/>
+			<target ref="id10"/>
+			<label kind="guard" x="-756" y="-314">firstParked == false || secondParked == false</label>
+			<label kind="synchronisation" x="-585" y="-259">continueOnStreet!</label>
+			<nail x="-527" y="-289"/>
+			<nail x="-714" y="-281"/>
 		</transition>
 		<transition>
 			<source ref="id10"/>
 			<target ref="id9"/>
-			<label kind="guard" x="-544" y="-204">unparked == true</label>
 			<label kind="synchronisation" x="-485" y="-221">park!</label>
 			<label kind="assignment" x="-510" y="-187">wait = 0</label>
 		</transition>
@@ -158,7 +160,13 @@ system carOne, carTwo, rightLane, leftLane;
     </system>
 	<queries>
 		<query>
-			<formula>E&lt;&gt; deadlock
+			<formula>E&lt;&gt; !deadlock
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (firstParked == false &amp;&amp; secondParked == true) || (firstParked == true &amp;&amp; secondParked == false)
 			</formula>
 			<comment>
 			</comment>
