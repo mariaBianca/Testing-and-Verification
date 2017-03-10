@@ -1,0 +1,5 @@
+If {ImageFolder}/1489011274201.png
+EndIf
+Click "{ImageFolder}/1489011282436.png"
+Check "{ImageFolder}/1489011294022.png"
+Check "{ImageFolder}/1489011304802.png"

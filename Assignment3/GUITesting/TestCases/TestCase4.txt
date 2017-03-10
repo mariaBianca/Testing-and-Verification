@@ -1,0 +1,2 @@
+Click "{ImageFolder}/1489010304475.png"
+Check "{ImageFolder}/1489010323368.png"
