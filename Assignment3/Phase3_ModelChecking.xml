@@ -173,9 +173,13 @@ system carOne, carTwo, rightLane, leftLane;
 </comment>
 </query>
 <query>
+<formula>A[] ((carOne.position == 3 and carOne.parked == true) imply (((carTwo.position != 3 or carTwo.position == 3) and carTwo.parked == false)) or ((carTwo.position != 3 or carTwo.parked == true)))
+</formula>
+<comment>
+</comment>
+</query>
+<query>
 <formula>A[] ((carOne.position == 2 and carOne.parked == true) imply ((carTwo.position != 2 or carTwo.parked == false) or (carTwo.position != 2 and carTwo.parked == true)) or (carTwo.position == 2 and carTwo.parked == false))
-or
-(carOne.position == 3 and carOne.parked) or
 
 </formula>
 <comment>
